@@ -206,6 +206,10 @@
                         <a href="<?php echo $this->full_url; ?>approve_prod_batch.php"><i class="fa fa-circle-o"></i><span>Approve Production Batch</span></a>
                     </li>
 
+                    <li class="active">
+                        <a href="<?php echo $this->full_url; ?>writeoff.php"><i class="fa fa-circle-o"></i><span>Write Off Materials</span></a>
+                    </li>
+
                     <!-- <li class="active">
                         <a href="<?php echo $this->full_url; ?>approve_sales.php"><i class="fa fa-circle-o"></i><span>Approve Sales</span></a>
                     </li>

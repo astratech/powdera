@@ -203,6 +203,7 @@ class Materials extends CI_Controller {
                     'quantity'=>$qty_to_writeoff, 
                     'staff_id'=>$this->staff_id, 
                     'reason'=>$reason, 
+                    'date_created'=>$date
                     ]);
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
