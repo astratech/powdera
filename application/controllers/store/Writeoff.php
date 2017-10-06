@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Materials extends CI_Controller {
+class Writeoff extends CI_Controller {
 	public function __construct(){
         parent::__construct();
         $url = $this->config->base_url();
@@ -215,10 +215,10 @@ class Materials extends CI_Controller {
             
         }
 
-        $data['page_title'] = "Materials";
+        $data['page_title'] = "Write Off Materials";
 
         $this->load->view("$this->mod_dir"."header",$data);
-        $this->load->view("$this->mod_dir"."materials",$data);
+        $this->load->view("$this->mod_dir"."writeoff",$data);
         $this->load->view("$this->mod_dir"."footer",$data);
         unset($_SESSION['notification']);
 	}

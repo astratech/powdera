@@ -23,6 +23,7 @@ class Leave extends CI_Controller {
             $date_from =  date("y-m-d", strtotime($this->input->post("date_from")));
             $date_to =  date("y-m-d", strtotime($this->input->post("date_to")));
             $comment =  $this->site_model->fil_text($this->input->post("comment"));
+            $date = date("Y-m-d H:i:s");
 
 
             foreach ($_POST as $key => $val) {
@@ -39,7 +40,7 @@ class Leave extends CI_Controller {
 
             }  
 
-            $this->db->insert('leaves', ['staff_id'=>$this->staff_id, 'leave_type'=>$leave_type, 'date_from'=>$date_from, 'date_to'=>$date_to, 'comments'=>$comment]);
+            $this->db->insert('leaves', ['staff_id'=>$this->staff_id, 'leave_type'=>$leave_type, 'date_from'=>$date_from, 'date_to'=>$date_to, 'comments'=>$comment, 'date_created'=>$date]);
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
                                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>

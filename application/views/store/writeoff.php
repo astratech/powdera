@@ -101,27 +101,20 @@
                                 ?>
                                 <section class="panel">
                                     <header class="panel-heading panel-border">
-                                        List of Incoming Materials
+                                        List of Write Off Materials
                                     <span class="tools pull-right">
                                         <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
                                     </span>
                                     </header>
-                                    <div class="panel-body table-responsive">
-                                        <p><button class="btn btn-primary c-n-q">Add new item</button></p>
-                                       
+                                    <div class="panel-body table-responsive">                                       
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>S/N</th>
-                                                    <th>Item Code</th>
+                                                    <th>Item Details</th>
                                                     <th>Supplier</th>
-                                                    <th>Item Name</th>
-                                                    <th>Quantity Supplied</th>
-                                                    <th>Unit</th>
-                                                    <th>Quantity In Store</th>
-                                                    <th>Date Supplied</th>
+                                                    <th>Quantity to Write Off</th>
                                                     <th>Date Created</th>
-                                                    <th>Action</th>
+                                                    <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: left; color: #000;">
@@ -129,38 +122,31 @@
                                                 <?php
                                                     $sn = 1;
 
-                                                    $st = $this->db->query("SELECT * FROM store_items ORDER BY id DESC");
+                                                    $st = $this->db->query("SELECT * FROM store_item_write_off ORDER BY id DESC");
                                                     foreach ($st->result() as $r) {
                                                        
 
                                                         echo "<tr style='text-transform: capitalize;'>";
 
-                                                        echo "<td>$sn</td>";
-                                                        
-                                                        echo "<td>$r->uq_id</td>";
-
                                                         echo "<td>";
-                                                        echo "<p>".$this->site_model->get_supplier($r->supplier_id)->name."</p>";
-                                                        echo "<p>".$this->site_model->get_supplier($r->supplier_id)->category."</p>";
+                                                        echo "<p>".$this->site_model->get_record("store_items", $r->item_id)->uq_id." - ".$this->site_model->get_record("store_items", $r->item_id)->item_name."</p>";
                                                         echo "</td>";
 
-                                                        echo "<td>$r->item_name</td>";
+                                                        echo "<td>";
+                                                        echo "<p>".$this->site_model->get_record("suppliers", $this->site_model->get_record("store_items", $r->item_id)->supplier_id)->name."</p>";
+                                                        echo "</td>";
+                                                        
                                                         echo "<td>$r->quantity</td>";
-                                                        echo "<td>$r->unit</td>";
-                                                        $left = $r->quantity - ($this->site_model->calc_prod_input_items_qty($r->id));
-                                                        $r->qty_in_store = $left;
-                                                        $r->supplier_name = $this->site_model->get_supplier($r->supplier_id)->name;
-                                                        echo "<td>$left</td>";
-
-                                                        echo "<td>$r->date_supplied</td>";
                                                                                                             
                                                         echo "<td>".date("d-M-Y H:i:s", strtotime($r->date_created))."</td>";
 
-                                                        echo "<td>";
-                                                        echo "<button class='btn btn-primary btn-sm shwEditModal' data-all='".json_encode($r)."' ><i class='fa fa-pencil'></i> Edit </button>";
-                                                        echo " <button class='btn btn-danger btn-sm shwAppModal' data-all='".json_encode($r)."'><i class='fa fa-trash'></i> Delete</button>";
-                                                        echo "<br/><br/><button class='btn btn-default btn-sm write-off' data-all='".json_encode($r)."'>Write Off Item</button>";
-                                                        echo "</td>";
+                                                        if($r->is_approved == 1){
+                                                             echo "<td>APPROVED</td>";
+                                                        }
+                                                        else{
+                                                             echo "<td>PENDING</td>";
+                                                        }
+
                                                         echo "</tr>";
 
                                                         $sn++;   

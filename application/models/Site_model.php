@@ -49,6 +49,31 @@ class Site_model extends CI_Model {
         return $output;
     }
 
+    public function get_records($table){
+        $q = $this->db->query("SELECT * FROM $table");
+        $output = [];
+        if($q->num_rows() > 0){
+            $output = $q;
+        }
+        return $output;
+    }
+
+    public function get_record($table, $id){
+        $q = $this->db->query("SELECT * FROM $table WHERE id='$id'");
+        $output = [];
+        if($q->num_rows() > 0){
+            $output = $q->row();
+        }
+        else{
+            foreach ($q->field_data() as $d) {
+                $output[$d->name] = null;
+            }
+        }       
+
+        $output = json_encode($output);
+        return json_decode($output); 
+    }
+
     public function get_staff($id){
         $q = $this->db->query("SELECT * FROM staffs WHERE id='$id'");
         $output = [];
