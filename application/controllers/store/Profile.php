@@ -63,8 +63,9 @@ class Profile extends CI_Controller {
 
             $email = $this->site_model->fil_email($this->input->post("email"));
             $mobile = $this->site_model->fil_string($this->input->post("mobile"));
+            $address = htmlspecialchars_decode($this->input->post("address"), ENT_NOQUOTES);;
 
-            if(empty($email) OR empty($mobile)) {
+            if(empty($email) OR empty($mobile) OR empty($address)) {
 
                 $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
                             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
@@ -77,7 +78,7 @@ class Profile extends CI_Controller {
             $date = date("Y-m-d H:i:s");
 
             // update 
-            $this->db->query("UPDATE staffs SET email='$email',mobile='$mobile' WHERE id='$this->staff_id'");
+            $this->db->query("UPDATE staffs SET email='$email',mobile='$mobile',address='$address' WHERE id='$this->staff_id'");
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
@@ -87,6 +88,71 @@ class Profile extends CI_Controller {
             exit();
             
         }
+
+        if(isset($_POST['update_kin'])){
+
+            $name = $this->site_model->fil_string($this->input->post("next_of_kin_name"));
+            $email = $this->site_model->fil_email($this->input->post("next_of_kin_email"));
+            $mobile = $this->site_model->fil_string($this->input->post("next_of_kin_mobile"));
+            $occupation = $this->site_model->fil_string($this->input->post("next_of_kin_occupation"));
+            $address = htmlspecialchars_decode($this->input->post("next_of_kin_address"), ENT_NOQUOTES);;
+
+            if(empty($name) OR empty($email) OR empty($mobile) OR empty($occupation) OR empty($address)) {
+
+                $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
+                            <strong>ERROR: </strong> Fill the empty fields.
+                        </div>";
+                header("Location: $url".$mod_dir."profile");
+                exit();
+            }
+            
+            $date = date("Y-m-d H:i:s");
+
+            // update 
+            $this->db->query("UPDATE staffs SET next_of_kin_email='$email', next_of_kin_mobile='$mobile', next_of_kin_address='$address', next_of_kin_occupation='$occupation', next_of_kin_name='$name' WHERE id='$this->staff_id'");
+
+            $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
+                <strong>Operation Successful. Profile Updated. </strong> 
+              </div>";
+            header("Location: $url".$mod_dir."profile");
+            exit();
+            
+        }
+
+        if(isset($_POST['upload_avatar'])){
+
+            $config['upload_path'] = 'public/assets/site/staffs/avatar';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size'] = 10000;
+            $config['file_name'] = $this->staff_id;
+            $config['overwrite'] = TRUE;
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('avatar')){
+                $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
+                        <strong>ERROR: </strong> Upload failed
+                      </div>";
+                // echo $this->upload->display_errors();
+                header("Location: $url".$mod_dir."profile");
+                exit();
+            }
+            else{
+                $u = $this->upload->data();
+                $pop_name = $u['file_name'];
+                $date = date("Y-m-d H:i:s");
+                $this->db->query("UPDATE staffs SET avatar='$pop_name' WHERE id='$this->staff_id'");
+                $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
+                        <strong>SUCCESS: </strong> Upload Successful
+                      </div>";
+                header("Location: $url".$mod_dir."profile");
+                exit();
+            } 
+            
+        }
+
 
         $data['page_title'] = "Staff Profile";
 
