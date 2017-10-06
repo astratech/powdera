@@ -200,12 +200,10 @@
                                 <a href="<?php echo $this->full_url; ?>view_staff.php"><i class="fa fa-circle-o"></i><span> View Staff </span></a>
                             </li>
                             <li>
-                        <a href="<?php echo $this->full_url; ?>offboard_staff.php"><i class="fa fa-circle-o"></i><span> OffBoard Staff </span></a>
-                    </li>
+                                <a href="<?php echo $this->full_url; ?>offboard_staff.php"><i class="fa fa-circle-o"></i><span> OffBoard Staff </span></a>
+                            </li>
                         </ul>
                     </li>
-
-                    
 
                     <li class="active">
                         <a href="<?php echo $this->full_url; ?>queries.php"><i class="fa fa-circle-o"></i><span> Create Queries</span></a>

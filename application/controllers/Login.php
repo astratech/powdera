@@ -43,7 +43,7 @@ class Login extends CI_Controller {
 
             // $password = $this->admin_model->encode_password($password);
             
-            $q = "SELECT * FROM staffs WHERE email='$email' AND password='$password' AND dept_id='$dept'";
+            $q = "SELECT * FROM staffs WHERE email='$email' AND password='$password' AND dept_id='$dept' AND offboard='0'";
             $r = $this->db->query($q);
             if($r->num_rows() > 0){
                 $url = $this->config->base_url();

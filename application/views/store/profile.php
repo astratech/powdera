@@ -43,7 +43,7 @@
                                                     <h2>No Profile Avatar</h2>
                                                     <form class="form-inline" role="form" method="post" action="" enctype="multipart/form-data">
                                                         
-                                                        <div class="btn btn-success fileinput-button" style="height: 40px;">
+                                                        <div class="btn btn-primary fileinput-button" style="height: 40px;">
                                                             <input type="file" name="avatar"/>
                                                         </div>
                                                         <div class="form-group">
@@ -58,7 +58,7 @@
                                                         <img src="<?php echo $this->config->item('assets_url')."/site/staffs/avatar/".$this->site_model->get_staff($this->staff_id)->avatar; ?>" class="img-responsive img-circle img-thumbnail" style="width: 200px;">
                                                         <form class="form-inline" role="form" method="post" action="" enctype="multipart/form-data">
                                                         
-                                                        <div class="btn btn-success fileinput-button" style="height: 40px;">
+                                                        <div class="btn btn-primary fileinput-button" style="height: 40px;">
                                                             <input type="file" name="avatar"/>
                                                         </div>
                                                         <div class="form-group">

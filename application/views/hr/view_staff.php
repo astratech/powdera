@@ -161,14 +161,15 @@
                                             <thead style="text-align: right;">
                                                 <tr>
                                                     <th>S/N</th>
+                                                    <th>Avatar</th>
                                                     <th>Staff ID</th>
                                                     <th>Name</th>
-                                                    
                                                     <th>Dept</th>
                                                     <th>Email</th>
                                                     <th>Mobile</th>
                                                     <th>Supervisor</th>
                                                     <th>Status</th>
+                                                    <th>Next Of Kin Details</th>
                                                     <th>Date Created</th>
                                                     <th>Date Approved</th>
                                                     <th>Action</th>
@@ -186,6 +187,7 @@
                                                         echo "<tr style='text-transform: capitalize;'>";
 
                                                         echo "<td>$sn</td>";
+                                                        echo "<td><a href='".$this->config->item('assets_url')."/site/staffs/avatar/".$r->avatar."' target='_blank'><img src=".$this->config->item('assets_url')."/site/staffs/avatar/".$r->avatar." class='img-responsive img-circle img-thumbnail' style='width: 200px;'><a></td>";
                                                         echo "<td>$r->uq_id</td>";
                                                         echo "<td>$r->title $r->fullname</td>";
 
@@ -200,6 +202,14 @@
                                                         else{
                                                             echo "<td><label class='label label-default'>Awaiting Approval</label></td>";
                                                         }
+
+                                                        echo "<td>";
+                                                        echo "<p>Name: $r->next_of_kin_name</p>";
+                                                        echo "<p>Email: $r->next_of_kin_email</p>";
+                                                        echo "<p>Mobile: $r->next_of_kin_mobile</p>";
+                                                        echo "<p>Occupation: $r->next_of_kin_occupation</p>";
+                                                        echo "<p>Address: $r->next_of_kin_address</p>";
+                                                        echo "</td>";
 
                                                         echo "<td>".date("d-M-Y", strtotime($r->date_created))."</td>";
 

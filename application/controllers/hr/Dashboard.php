@@ -19,8 +19,8 @@ class Dashboard extends CI_Controller {
 
         $this->load->view("$this->mod_dir"."header",$data);
         $this->load->view("$this->mod_dir"."dashboard",$data);
-        // $this->load->view('login',$data);
-        // $this->load->view('footer',$data);
+        $this->load->view("$this->mod_dir"."footer",$data);
+
         unset($_SESSION['notification']);
 	}
 }
