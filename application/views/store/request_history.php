@@ -94,7 +94,6 @@
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>S/N</th>
                                                     
                                                     <th>Production Batch</th>
                                                     <th>Production Process</th>
@@ -107,7 +106,6 @@
                                             <tbody style="text-align: left; color: #000;">
 
                                                 <?php
-                                                    $sn = 1;
                                                     $prod_batch_process = $this->db->query("SELECT * FROM prod_batch_process WHERE status!='awaiting' ORDER BY id DESC");
                                                     foreach ($prod_batch_process ->result() as $pdp) {
                                                         $input_items = $this->db->query("SELECT * FROM prod_input_items WHERE prod_batch_process_id='$pdp->id' AND prod_batch_id='$pdp->prod_batch_id' ORDER BY id DESC");
@@ -116,7 +114,6 @@
                                                             $d['prod_batch_id'] = $pdp->prod_batch_id;
 
                                                             echo "<tr style='text-transform: capitalize;'>";
-                                                            echo "<td>$sn</td>";
                                                             echo "<td>".$this->site_model->get_prod_batch($pdp->prod_batch_id)->uq_id."</td>";
                                                             echo "<td>".$this->site_model->get_process($this->site_model->get_assigned_process($pdp->assigned_process_id)->process_id)->name."</td>";
                                                             echo "<td>$pdp->date_created</td>";
@@ -133,7 +130,6 @@
                                                             
                                                             echo "</tr>";
                                                         }
-                                                         $sn++;  
                                                     }
                                                         
                                                 ?>

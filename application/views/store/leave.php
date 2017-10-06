@@ -109,7 +109,6 @@
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>S/N</th>
                                                     <th>Leave Type</th>
                                                     <th>From</th>
                                                     <th>To</th>
@@ -129,7 +128,6 @@
 
                                                         echo "<tr style='text-transform: capitalize;'>";
 
-                                                        echo "<td>$sn</td>";
                                                         echo "<td>$r->leave_type</td>";
                                                         echo "<td>".date("d-M-Y", strtotime($r->date_from))."</td>";
                                                         echo "<td>".date("d-M-Y", strtotime($r->date_to))."</td>";

@@ -84,7 +84,6 @@
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>S/N</th>
                                                     <th>Name</th>
                                                     <th>Date Created</th>
                                                     <th>Action</th>
@@ -100,8 +99,6 @@
                                                        
 
                                                         echo "<tr style='text-transform: capitalize;'>";
-
-                                                        echo "<td>$sn</td>";
                                                         
                                                         echo "<td>$r->name</td>";
                                                                                                             

@@ -94,7 +94,6 @@
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>S/N</th>
                                                     
                                                     <th>Production Batch</th>
                                                     <th>Production Process</th>
@@ -114,7 +113,6 @@
                                                         $d['prod_batch_id'] = $pdp->prod_batch_id;
 
                                                         echo "<tr style='text-transform: capitalize;'>";
-                                                        echo "<td>$sn</td>";
                                                         echo "<td>".$this->site_model->get_prod_batch($pdp->prod_batch_id)->uq_id."</td>";
                                                         echo "<td>".$this->site_model->get_process($this->site_model->get_assigned_process($pdp->assigned_process_id)->process_id)->name."</td>";
                                                         echo "<td>$pdp->date_created</td>";

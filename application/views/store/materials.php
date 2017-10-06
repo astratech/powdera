@@ -112,7 +112,6 @@
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>S/N</th>
                                                     <th>Item Code</th>
                                                     <th>Supplier</th>
                                                     <th>Item Name</th>
@@ -134,8 +133,6 @@
                                                        
 
                                                         echo "<tr style='text-transform: capitalize;'>";
-
-                                                        echo "<td>$sn</td>";
                                                         
                                                         echo "<td>$r->uq_id</td>";
 

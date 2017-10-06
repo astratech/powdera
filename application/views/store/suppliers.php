@@ -93,7 +93,6 @@
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>S/N</th>
                                                     <th>Code</th>
                                                     <th>Name</th>
                                                     <th>Category</th>
@@ -111,10 +110,7 @@
                                                     foreach ($st->result() as $r) {
                                                        
 
-                                                        echo "<tr style='text-transform: capitalize;'>";
-
-                                                        echo "<td>$sn</td>";
-                                                        
+                                                        echo "<tr style='text-transform: capitalize;'>";                                                        
                                                         echo "<td>$r->uq_id</td>";
                                                         echo "<td>$r->name</td>";
                                                         echo "<td>$r->category</td>";
