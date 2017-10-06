@@ -29,6 +29,8 @@
                             $("#edit-modal [name='supplier_id']").val(d.id);
                             $("#edit-modal [name='name']").val(d.name);
                             $("#edit-modal [name='uq_id']").val(d.uq_id);
+                            $("#edit-modal [name='category']").val(d.category);
+                            $("#edit-modal [name='contact_info']").val(d.contact_info);
                             $("#edit-modal").modal("show");
                         }
                         catch(err){
@@ -72,6 +74,12 @@
 
                                     }
                                 ?>
+                                <style type="text/css">
+                                    pre{
+                                        border-width: 0px;
+                                        background-color: transparent;
+                                    }
+                                </style>
                                 <section class="panel">
                                     <header class="panel-heading panel-border">
                                         List of Suppliers
@@ -88,6 +96,8 @@
                                                     <th>S/N</th>
                                                     <th>Code</th>
                                                     <th>Name</th>
+                                                    <th>Category</th>
+                                                    <th>Contact Info</th>
                                                     <th>Date Created</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -107,6 +117,8 @@
                                                         
                                                         echo "<td>$r->uq_id</td>";
                                                         echo "<td>$r->name</td>";
+                                                        echo "<td>$r->category</td>";
+                                                        echo "<td><pre>".$r->contact_info."</pre></td>";
                                                                                                             
                                                         echo "<td>".date("d-M-Y H:i:s", strtotime($r->date_created))."</td>";
 
@@ -155,6 +167,16 @@
                                         <input type="text" class="form-control" name="name" required="required" value="<?php echo isset($_SESSION['cache_form']['name']) ? $_SESSION['cache_form']['name'] : '' ?>">
                                     </div>
 
+                                    <div class="form-group col-xs-12">
+                                        <label>Supplier Item Category</label>
+                                        <input type="text" class="form-control" name="category" required="required">
+                                    </div>
+
+                                    <div class="form-group col-xs-12">
+                                        <label>Contact Info</label>
+                                        <textarea class="form-control" name="contact_info"></textarea>
+                                    </div>
+
                                 </div>
                         </div>
                         <div class="modal-footer">
@@ -184,6 +206,16 @@
                                     <div class="form-group col-xs-12">
                                         <label>Name</label>
                                         <input type="text" class="form-control" name="name" required="required">
+                                    </div>
+
+                                    <div class="form-group col-xs-12">
+                                        <label>Supplier Item Category</label>
+                                        <input type="text" class="form-control" name="category" required="required">
+                                    </div>
+
+                                    <div class="form-group col-xs-12">
+                                        <label>Contact Info</label>
+                                        <textarea class="form-control" name="contact_info"><pre></pre></textarea>
                                     </div>
                                     
                                 </div>

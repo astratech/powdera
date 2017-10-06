@@ -22,6 +22,10 @@ class Suppliers extends CI_Controller {
 
             $name =  $this->site_model->fil_string($this->input->post("name"));
             $uq_id =  $this->site_model->fil_string($this->input->post("uq_id"));
+            $category =  $this->site_model->fil_text($this->input->post("category"));
+           
+            $contact_info = htmlspecialchars_decode($this->input->post("contact_info"), ENT_NOQUOTES);
+            $supplier_id =  $this->site_model->fil_string($this->input->post("supplier_id"));
 
 
             //check for empty fields
@@ -55,6 +59,8 @@ class Suppliers extends CI_Controller {
 
             $this->db->insert('suppliers', ['name'=>$name, 
                     'uq_id'=>$uq_id, 
+                    'category'=>$category,
+                    'contact_info'=>$contact_info,
                     'date_created'=>$date]);
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
@@ -71,6 +77,10 @@ class Suppliers extends CI_Controller {
             
             $name =  $this->site_model->fil_string($this->input->post("name"));
             $uq_id =  $this->site_model->fil_string($this->input->post("uq_id"));
+            $category =  $this->site_model->fil_text($this->input->post("category"));
+            $contact_info =  $this->input->post("contact_info");
+           
+            $contact_info = htmlspecialchars_decode($contact_info, ENT_NOQUOTES);
             $supplier_id =  $this->site_model->fil_string($this->input->post("supplier_id"));
 
 
@@ -102,7 +112,10 @@ class Suppliers extends CI_Controller {
 
             $date = date("Y-m-d H:i:s");
 
-            $up_data = ['name'=>$name];
+            $up_data = ['name'=>$name,
+                    'category'=>$category,
+                    'contact_info'=>$contact_info,
+                    ];
 
             $where = "id = $supplier_id";
 
