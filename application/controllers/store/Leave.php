@@ -25,7 +25,26 @@ class Leave extends CI_Controller {
             $comment =  $this->site_model->fil_text($this->input->post("comment"));
 
 
+            foreach ($_POST as $key => $val) {
+                $_SESSION['cache_form'][$key] = $val;
+                if (empty($val)) {
+
+                    $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
+                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
+                                <strong>ERROR: </strong> Fill the empty fields
+                            </div>";
+                    header("Location: $url".$mod_dir."leave");
+                    exit();
+                }
+
+            }  
+
             $this->db->insert('leaves', ['staff_id'=>$this->staff_id, 'leave_type'=>$leave_type, 'date_from'=>$date_from, 'date_to'=>$date_to, 'comments'=>$comment]);
+
+            $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
+                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
+                                <strong>Operation Successful: </strong> Wait for approval.
+                            </div>";
 
             header("Location: $url".$mod_dir."leave");
             exit();

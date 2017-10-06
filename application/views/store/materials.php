@@ -122,7 +122,10 @@
                                                         
                                                         echo "<td>$r->uq_id</td>";
 
-                                                        echo "<td>".$this->site_model->get_supplier($r->supplier_id)->name."</td>";
+                                                        echo "<td>";
+                                                        echo "<p>".$this->site_model->get_supplier($r->supplier_id)->name."</p>";
+                                                        echo "<p>".$this->site_model->get_supplier($r->supplier_id)->category."</p>";
+                                                        echo "</td>";
 
                                                         echo "<td>$r->item_name</td>";
                                                         echo "<td>$r->quantity</td>";
@@ -180,7 +183,7 @@
                                            <?php
                                            $list = $this->db->query("SELECT * FROM suppliers ORDER BY id DESC");
                                                 foreach ($list->result() as $d) {
-                                                   echo "<option value='$d->id'>$d->name :: $d->uq_id</option>";
+                                                   echo "<option value='$d->id'>$d->name - $d->uq_id - $d->category </option>";
                                                 }
                                             ?>
                                         </select>
@@ -257,7 +260,7 @@
                                            <?php
                                            $list = $this->db->query("SELECT * FROM suppliers ORDER BY id DESC");
                                                 foreach ($list->result() as $d) {
-                                                   echo "<option value='$d->id'>$d->name :: $d->uq_id</option>";
+                                                   echo "<option value='$d->id'>$d->name :: $d->uq_id - $d->category </option>";
                                                 }
                                             ?>
                                         </select>
