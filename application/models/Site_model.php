@@ -17,7 +17,7 @@ class Site_model extends CI_Model {
     }
 
     public function fil_text($str){
-        $val = preg_replace("/[^A-Za-z0-9,_.\-@() ]/", "", $str);
+        $val = preg_replace("/[^A-Za-z0-9,_.\-@(): ]/", "", $str);
         return $val;
     }
     public function fil_string($str){

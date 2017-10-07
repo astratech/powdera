@@ -13,6 +13,7 @@ class Leave extends CI_Controller {
         $this->mod_dir = $this->site_model->get_dept($_SESSION['powdera_logged']['dept_id'])->url;
         $this->full_url = $this->config->base_url()."".$this->mod_dir;
         $this->staff_id = $_SESSION['powdera_logged']['staff_id'];
+        $this->module = "Admin PA";
    	}
 
 	public function index(){
@@ -52,7 +53,7 @@ class Leave extends CI_Controller {
             exit();
         }
 
-        $data['page_title'] = "Support Staff Leave";
+        $data['page_title'] = "Leave";
 
         $this->load->view("$this->mod_dir"."header",$data);
         $this->load->view("$this->mod_dir"."leave",$data);

@@ -8,18 +8,18 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <h1 class="page-title">
-                                    Create Leave 
+                                    <?php echo "$page_title"; ?>
                                 </h1>
                             </div>
                             <div class="col-md-4">
                                 <ul class="breadcrumb pull-right">
-                                    <li>Support Staff</li>
-                                    <li>Create Leave</li>
+                                    <li><?php echo "$this->module"; ?></li>
+                                    <li><?php echo "$page_title"; ?></li>
+                                </ul>
 
                             </div>
                         </div>
                         <!--page title and breadcrumb end -->
-
 
                         <div class="row">
                             <div class="col-md-6 col-md-offset-3">

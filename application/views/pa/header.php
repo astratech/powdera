@@ -192,6 +192,19 @@
                     </li>
 
                     <li class="active">
+                        <a><i class="fa fa-circle-o"></i><span>Itinerary Management</span><i class="fa fa-angle-right pull-right"></i></a>
+                        <ul class="nav nav-sub">
+                            <li class="">
+                                <a href="<?php echo $this->full_url; ?>event.php"><i class="fa fa-circle-o"></i><span> Event Itinerary</span></a>
+                            </li>
+                            <li class="">
+                                <a href="<?php echo $this->full_url; ?>travel.php"><i class="fa fa-circle-o"></i><span> Travel Itinerary</span></a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+
+                    <li class="active">
                         <a href="<?php echo $this->full_url; ?>leave"><i class="fa fa-bookmark-o"></i><span>Create Leave </span></a>
                     </li>
                     <li class="active">
