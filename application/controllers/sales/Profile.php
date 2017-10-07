@@ -13,7 +13,7 @@ class Profile extends CI_Controller {
         $this->mod_dir = $this->site_model->get_dept($_SESSION['powdera_logged']['dept_id'])->url;
         $this->full_url = $this->config->base_url()."".$this->mod_dir;
         $this->staff_id = $_SESSION['powdera_logged']['staff_id'];
-        $this->module = "Support Staff";
+        $this->module = "Sales Manager";
     }
 
     public function index(){

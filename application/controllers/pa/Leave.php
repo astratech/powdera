@@ -20,21 +20,6 @@ class Leave extends CI_Controller {
 
         if(isset($_POST['create_leave'])){
 
-            //check for empty fields
-            foreach ($_POST as $key => $val) {
-                $_SESSION['reg_form'][$key] = $val;
-                if (empty($val)) {
-                    
-                    $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
-                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
-                                <strong>ERROR: </strong> Fill the empty fields
-                            </div>";
-
-                    header("Location: $url".$mod_dir."leave");
-                    exit();
-                }
-            }   
-
             $leave_type =  $this->site_model->fil_string($this->input->post("leave_type"));
             $date_from =  date("y-m-d", strtotime($this->input->post("date_from")));
             $date_to =  date("y-m-d", strtotime($this->input->post("date_to")));
@@ -42,12 +27,26 @@ class Leave extends CI_Controller {
             $date = date("Y-m-d H:i:s");
 
 
+            foreach ($_POST as $key => $val) {
+                $_SESSION['cache_form'][$key] = $val;
+                if (empty($val)) {
+
+                    $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
+                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
+                                <strong>ERROR: </strong> Fill the empty fields
+                            </div>";
+                    header("Location: $url".$mod_dir."leave");
+                    exit();
+                }
+
+            }  
+
             $this->db->insert('leaves', ['staff_id'=>$this->staff_id, 'leave_type'=>$leave_type, 'date_from'=>$date_from, 'date_to'=>$date_to, 'comments'=>$comment, 'date_created'=>$date]);
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
-                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
-                    <strong>SUCCESSFUL: </strong> Data Recorded.
-                </div>";
+                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
+                                <strong>Operation Successful: </strong> Wait for approval.
+                            </div>";
 
             header("Location: $url".$mod_dir."leave");
             exit();

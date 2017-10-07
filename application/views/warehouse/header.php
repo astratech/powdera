@@ -183,7 +183,7 @@
             <aside id="aside" class="ui-aside" style="background-color: #fafafa; color: #000;">
                 <ul class="nav" ui-nav="">
                     <li class="nav-head">
-                        <h5 class="nav-title text-uppercase light-txt">Operation Supervisor</h5>
+                        <h5 class="nav-title text-uppercase light-txt">WareHouse Manager</h5>
                     </li>
 
                     <li class="active">
