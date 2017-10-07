@@ -83,7 +83,7 @@
                                     </header>
                                     <div class="panel-body table-responsive">
                                         <p><button class="btn btn-primary c-n-q">Create New Allowance</button></p>
-                                        <!-- <p><button class="btn btn-primary shwCreateForm">Create New Query</button></p> -->
+                                       
                                        
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">

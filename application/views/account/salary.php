@@ -20,10 +20,12 @@
                         var amount = $(this).data('salary-amount');
                         var staff_name = $(this).data('staff-name');
                         var salary_id = $(this).data('salary-id');
+                        var tax = $(this).data('tax');
 
                         $("#edit-modal input[name='salary_id']").val(salary_id);
                         $("#edit-modal input[name='staff_name']").val(staff_name);
                         $("#edit-modal input[name='amount']").val(amount);
+                        $("#edit-modal input[name='tax']").val(tax);
                         $("#edit-modal").modal("show");
                     });
 
@@ -80,6 +82,8 @@
                                                     <th>S/N</th>
                                                     <th>Staff</th>
                                                     <th>Amount</th>
+                                                    <th>Tax</th>
+                                                    <th>Net to Gross</th>
                                                     <th>Date Created</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -101,11 +105,22 @@
                                                         echo "<p>".$this->site_model->get_staff($r->staff_id)->fullname."</p>";
                                                         echo "<p><a href='".$this->full_url."view_staff?id=$r->id' target='_blank' class='btn btn-default shwStaff' data-staff-id=''>View Staff Details</a><p>";
                                                         echo "</td>";
+                                                        
                                                         echo "<td>₦$r->amount</td>";
+
+                                                        echo "<td>";
+                                                        echo "<p>$r->tax%</p>";
+                                                        echo "<p>₦".(($r->tax/100) * $r->amount)."</p>";
+                                                        echo "</td>";
+
+                                                        echo "<td>";
+                                                        echo "<p>₦".($r->amount - ($r->tax/100) * $r->amount)."</p>";
+                                                        echo "</td>";
+
                                                         echo "<td>".date("d/M/Y H:i:s", strtotime($r->date_created))."</td>";
 
                                                         echo "<td>";
-                                                        echo "<button class='btn btn-primary shwEditModal' data-salary-id='$r->id' data-salary-amount='$r->amount' data-staff-name='$staff_name'><i class='fa fa-pencil'></i> Edit </button>";
+                                                        echo "<button class='btn btn-primary shwEditModal' data-tax='$r->tax' data-salary-id='$r->id' data-salary-amount='$r->amount' data-staff-name='$staff_name'><i class='fa fa-pencil'></i> Edit </button>";
                                                         echo " <button class='btn btn-danger shwAppModal' data-salary-id='$r->id'><i class='fa fa-trash'></i> Delete</button>";
                                                         echo "</td>";
                                                         echo "</tr>";
@@ -154,6 +169,11 @@
                                         <label>Salary</label>
                                         <input type="number" class="form-control" name="amount" required="required">
                                     </div>
+
+                                    <div class="form-group col-xs-12">
+                                        <label>Tax (in %)</label>
+                                        <input type="text" class="form-control" name="tax" required="required">
+                                    </div>
                                 </div>
                         </div>
                         <div class="modal-footer">
@@ -184,6 +204,10 @@
                                         <label>Salary(₦)</label>
                                         <input type="number" class="form-control" name="amount" required="required">
                                         <input type="hidden" name="salary_id" value="" />
+                                    </div>
+                                    <div class="form-group col-xs-12">
+                                        <label>Tax (in %)</label>
+                                        <input type="text" class="form-control" name="tax" required="required">
                                     </div>
                                 </div>
                         </div>

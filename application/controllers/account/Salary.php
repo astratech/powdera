@@ -22,8 +22,10 @@ class Salary extends CI_Controller {
 
             $staff_id =  $this->site_model->fil_num($this->input->post("staff_id"));
             $amount =  $this->site_model->fil_num($this->input->post("amount"));
+            $tax =  $this->input->post("tax");
             
-            if(empty($staff_id) || empty($amount)){
+            
+            if(empty($staff_id) || empty($amount) || empty($tax)){
                   $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
                                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
                                 <strong>ERROR: </strong> Operation Failed
@@ -46,7 +48,7 @@ class Salary extends CI_Controller {
 
             $date = date("Y-m-d H:i:s");
 
-            $this->db->insert('salary', ['staff_id'=>$staff_id, 'amount'=>$amount, 'date_created'=>$date]);
+            $this->db->insert('salary', ['staff_id'=>$staff_id, 'amount'=>$amount, 'tax'=>$tax, 'date_created'=>$date]);
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
@@ -61,6 +63,7 @@ class Salary extends CI_Controller {
 
             $salary_id =  $this->site_model->fil_num($this->input->post("salary_id"));
             $amount =  $this->site_model->fil_num($this->input->post("amount"));
+            $tax =  $this->input->post("tax");
             
             if(empty($salary_id) || empty($amount)){
                   $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
@@ -74,7 +77,7 @@ class Salary extends CI_Controller {
 
             $date = date("Y-m-d H:i:s");
 
-            $this->db->query("UPDATE salary SET amount='$amount' WHERE id='$salary_id'");
+            $this->db->query("UPDATE salary SET amount='$amount',tax='$tax' WHERE id='$salary_id'");
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>

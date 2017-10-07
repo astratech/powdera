@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Dashboard extends CI_Controller {
+class Payslip extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $url = $this->config->base_url();
@@ -18,10 +18,11 @@ class Dashboard extends CI_Controller {
 
     public function index(){
         
-        $data['page_title'] = "Dashboard";
+
+        $data['page_title'] = "Payslip";
 
         $this->load->view("$this->mod_dir"."header",$data);
-        $this->load->view("$this->mod_dir"."dashboard",$data);
+        $this->load->view("$this->mod_dir"."payslip",$data);
         $this->load->view("$this->mod_dir"."footer",$data);
         unset($_SESSION['notification']);
     }

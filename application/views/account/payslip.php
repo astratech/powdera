@@ -67,33 +67,23 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <?php 
-                                    if(isset($_SESSION['notification'])){
-
-                                        echo $_SESSION['notification'];
-
-                                    }
-                                ?>
+                               
                                 <section class="panel">
                                     <header class="panel-heading panel-border">
-                                        Vendor Payments
+                                        Salary
                                     <span class="tools pull-right">
                                         <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
                                     </span>
                                     </header>
                                     <div class="panel-body table-responsive">
-                                       
+
                                         <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
                                                     <th>S/N</th>
-                                                    <th>Vendor</th>
-                                                    <th>Quantity</th>
                                                     <th>Amount</th>
-                                                    <th>Purpose of Payment</th>
-                                                    <th>Status</th>                                                    
-                                                    <th>Date Created</th>
-                                                    <th>Date Approved</th>
+                                                    <th>Tax</th>
+                                                    <th>Net to Gross</th>
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: left; color: #000;">
@@ -101,39 +91,26 @@
                                                 <?php
                                                     $sn = 1;
 
-                                                    $st = $this->db->query("SELECT * FROM vendor_payment ORDER BY id DESC");
+                                                    $st = $this->db->query("SELECT * FROM salary WHERE staff_id='$this->staff_id' ORDER BY id DESC");
                                                     foreach ($st->result() as $r) {
                                                        
 
                                                         echo "<tr style='text-transform: capitalize;'>";
 
                                                         echo "<td>$sn</td>";
-                                                        echo "<td>";
-                                                        echo "<p>".$this->site_model->get_vendor($r->vendor_id)->uq_id."</p>";
-                                                        echo "<p><a href='".$this->full_url."vendors?id=$r->id' target='_blank' class='btn btn-warning btn-xs'>View Vendor Details</a><p>";
-                                                        echo "</td>";
-                                                        echo "<td>$r->quantity</td>";
-                                                        echo "<td>₦$r->amount</td>";
-                                                        echo "<td>$r->purpose</td>";
-
-                                                        if($r->is_approved == 1){
-                                                            echo "<td><label>Approved</label></td>";
-                                                        }
-                                                        else{
-                                                             echo "<td><label>Pending</label></td>";
-                                                        }
-
-                                                        echo "<td>".date("d / M / Y H:i:s", strtotime($r->date_created))."</td>";
-
-                                                        if($r->is_approved == 1){
-                                                           echo "<td>".date("d / M / Y H:i:s", strtotime($r->date_approved))."</td>";
-                                                        }
-                                                        else{
-                                                             echo "<td></td>";
-                                                        }
-
                                                         
-                                                       
+                                                        echo "<td>₦$r->amount</td>";
+
+                                                        echo "<td>";
+                                                        echo "<p>$r->tax%</p>";
+                                                        echo "<p>₦".(($r->tax/100) * $r->amount)."</p>";
+                                                        echo "</td>";
+
+                                                        echo "<td>";
+                                                        echo "<p>₦".($r->amount - ($r->tax/100) * $r->amount)."</p>";
+                                                        echo "</td>";
+
+          
                                                         echo "</tr>";
 
                                                         $sn++;   
@@ -145,6 +122,56 @@
                                         </table>
                                     </div>
                                 </section>
+
+                            </div>
+
+                            <div class="col-md-12">
+                               
+                                <section class="panel">
+                                    <header class="panel-heading panel-border">
+                                        Allowance
+                                    <span class="tools pull-right">
+                                        <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
+                                    </span>
+                                    </header>
+                                    <div class="panel-body table-responsive">
+
+                                        <table class="table convert-data-table table-striped table-bordered">
+                                            <thead style="text-align: right;">
+                                                <tr>
+                                                    <th>S/N</th>
+                                                    <th>Allowance Type</th>
+                                                    <th>Amount</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody style="text-align: left; color: #000;">
+
+                                                <?php
+                                                    $sn = 1;
+
+                                                    $st = $this->db->query("SELECT * FROM allowance ORDER BY id DESC");
+                                                    foreach ($st->result() as $r) {
+                                                       
+
+                                                        echo "<tr style='text-transform: capitalize;'>";
+
+                                                        echo "<td>$sn</td>";
+                                                        
+                                                        echo "<td>$r->allowance_type</td>";
+                                                        echo "<td>₦$r->amount</td>";                                                        
+                                                        echo "</tr>";
+
+                                                        $sn++;   
+                                                    }
+
+                                                ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </section>
+
                             </div>
                         </div>
                     </div>
