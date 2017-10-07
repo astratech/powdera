@@ -205,10 +205,10 @@
                             </li>
                         </ul>
                     </li>
-
+<!-- 
                     <li class="active">
                         <a href="<?php echo $this->full_url; ?>raise.php"><i class="fa fa-circle-o"></i><span>Raise Product Request </span></a>
-                    </li>
+                    </li> -->
 
                     <li class="active">
                         <a href="<?php echo $this->full_url; ?>inventory.php"><i class="fa fa-circle-o"></i><span> Product Inventory</span></a>

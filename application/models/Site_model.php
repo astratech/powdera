@@ -381,6 +381,20 @@ class Site_model extends CI_Model {
         
     }
 
+    public function calc_ex_prod_qty_sold($id){
+        $input_quantity = 0;
+
+        $q1 = $this->db->query("SELECT * FROM sales_ex_product WHERE warehouse_id='$id' ");
+        if($q1->num_rows() > 0){
+            foreach ($q1->result() as $d) {
+                $input_quantity = $d->quantity + $input_quantity;
+            }
+        }
+
+        return $input_quantity;
+        
+    }
+
     public function calc_req_sale_qty($sales_product_id){
         $quantity = 0;
 

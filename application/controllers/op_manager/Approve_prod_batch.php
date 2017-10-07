@@ -79,7 +79,7 @@ class Approve_prod_batch extends CI_Controller {
 
             $date = date("Y-m-d H:i:s");
 
-            $this->db->query("UPDATE prod_batch SET is_approved='1' WHERE id='$prod_batch_id'");
+            $this->db->query("UPDATE prod_batch SET is_approved='1',date_approved='$date' WHERE id='$prod_batch_id'");
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>

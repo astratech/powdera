@@ -20,41 +20,11 @@
                         </div>
                         <!--page title and breadcrumb end -->
 
-                        <!--states start-->
-                        <div class="row">
-
-                            <div class="col-md-6 col-sm-6">
-                                <div class="panel short-states bg-primary">
-                                    <div class="pull-right state-icon">
-                                    </div>
-                                    <div class="panel-body">
-                                        <h1 class="light-txt">268,188</h1>
-                                        <div class=" pull-right"></i></div>
-                                        <strong class="text-uppercase">Total Number of Staff.</strong>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-sm-6">
-                                <div class="panel short-states bg-primary" style="background-color: #89c26f;">
-                                    <div class="pull-right state-icon">
-                                    </div>
-                                    <div class="panel-body">
-                                        <h1 class="light-txt">20</h1>
-                                        <div class=" pull-right"></i></div>
-                                        <strong class="text-uppercase">Total Number of Dept.</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--states end-->
-
-
                         <div class="row">
                             <div class="col-sm-12">
                                 <section class="panel">
                                     <header class="panel-heading panel-border">
-                                        Queries in 6 Months
+                                        Delivered Requests
                                     <span class="tools pull-right">
                                         <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
                                     </span>
@@ -64,24 +34,39 @@
                                             <thead style="text-align: right;">
                                                 <tr>
                                                     <th>SN</th>
-                                                    <th>Staff ID</th>
-                                                    <th>View Query</th>
-                                                    <th>Date</th>
+                                                    <th>Request Code</th>
+                                                    <th>Customer Details</th>
+                                                    <th>Product Details</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: left;">
+                                                <?php
+                                                    $sn = 1;
 
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <p>DST679</p>
-                                                        <p><button class="btn btn-sm btn-info">View Staff Details</button></p>
-                                                    </td>
+                                                    $st = $this->db->query("SELECT * FROM customer_requests WHERE status='delivered' ORDER BY id DESC");
+                                                    foreach ($st->result() as $r) {
+                                                        echo "<tr style='text-transform: capitalize;'>";
 
-                                                    <td><button class="btn btn-sm btn-warning">Preview Query</button></td>
-                                                    <td>01/09/2018</td>
-                                                   
-                                                </tr>
+                                                        echo "<td>$sn</td>";
+                                                        echo "<td>$r->uq_id</td>";
+                                                        echo "<td>".$this->site_model->get_customer($r->customer_id)->name."</td>";
+                                                        echo "<td>".$this->site_model->get_prod_output_item($this->site_model->get_sales_product($r->sales_product_id)->prod_output_item_id)->item."</td>";
+                                                        echo "<td>$r->quantity</td>";
+                                                        echo "<td>$r->amount</td>";
+                                                        echo "<td>";
+                                                        echo "<p>$r->status <br></p>";
+                                                        echo "</td>";
+
+    
+                                                        echo "</tr>";
+
+                                                        $sn++;   
+                                                    }
+
+                                                ?>  
                                             </tbody>
                                         </table>
                                     </div>

@@ -34,23 +34,22 @@
                                         <table class="table convert-data-table table-striped table-hover table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>SN</th>
+                                                    <th>Product ID</th>
                                                     <th>Product Type</th>
                                                     <th>Quantity</th>
+                                                    <th>Date Added</th>
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: left;">
 
                                                 <?php
-                                                    $sn = 1;
-
                                                     $st = $this->db->query("SELECT * FROM prod_batch WHERE done='1' AND is_approved='1' ORDER BY id DESC");
                                                     foreach ($st->result() as $r) {
                                                        
 
                                                         echo "<tr style='text-transform: capitalize;'>";
+                                                        echo "<td>$r->uq_id</td>";
 
-                                                        echo "<td>$sn</td>";
                                                         echo "<td>".$this->site_model->get_business_line($r->business_line_id)->name."</td>";
 
                                                         $qq = $this->db->query("SELECT * FROM prod_output_items WHERE prod_batch_id='$r->id' ORDER BY id DESC LIMIT 0,1");
@@ -62,11 +61,11 @@
                                                         }
 
                                                         echo "<td><p>$w_item</p> <p>$w_qty $w_unit</p></td>";
+                                                        echo "<td>".date("d-M-Y", strtotime($r->date_approved))."</td>";
                                                                                                             
                                                       
                                                         echo "</tr>";
 
-                                                        $sn++;   
                                                     }
 
                                                 ?>
