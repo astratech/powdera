@@ -28,7 +28,7 @@ class Vendor_payment extends CI_Controller {
 
             //check for empty fields
             foreach ($_POST as $key => $val) {
-                echo "$key == $val <br>";
+                // echo "$key == $val <br>";
                 // $_SESSION['reg_form'][$key] = $val;
                 if (empty($val)) {
 
