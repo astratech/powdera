@@ -107,40 +107,60 @@
 
                                                 <?php
                                                     $sn = 1;
-                                                    
-                                                        $prod_batch_process = $this->db->query("SELECT * FROM prod_batch_process WHERE status='awaiting' ORDER BY id DESC");
-                                                        foreach ($prod_batch_process ->result() as $pdp) {
-                                                            $d['prod_batch_process_id'] = $pdp->id;
-                                                            $d['prod_batch_id'] = $pdp->prod_batch_id;
+                                                    $prod_batch_process = $this->db->query("SELECT * FROM prod_batch_process WHERE status='awaiting' ORDER BY id DESC");
+                                                    foreach ($prod_batch_process ->result() as $pdp) {
+                                                        $d['prod_batch_process_id'] = $pdp->id;
+                                                        $d['prod_batch_id'] = $pdp->prod_batch_id;
 
-                                                            $cc = $this->db->query("SELECT * FROM prod_input_items WHERE prod_batch_process_id='$pdp->id' AND prod_batch_id='$pdp->prod_batch_id' AND manager_approved='1'");
-                                                            if($cc->num_rows() > 0){
+                                                        $cc = $this->db->query("SELECT * FROM prod_input_items WHERE prod_batch_process_id='$pdp->id' AND prod_batch_id='$pdp->prod_batch_id' AND manager_approved='0'");
+                                                        if($cc->num_rows() > 0){
 
-                                                                echo "<tr style='text-transform: capitalize;'>";
-                                                                echo "<td>".$this->site_model->get_prod_batch($pdp->prod_batch_id)->uq_id."</td>";
-                                                                echo "<td>".$this->site_model->get_process($this->site_model->get_assigned_process($pdp->assigned_process_id)->process_id)->name."</td>";
-                                                                echo "<td>$pdp->date_created</td>";
-                                                                echo "<td>".$this->site_model->get_staff($pdp->staff_id)->fullname."</td>";
+                                                            echo "<tr style='text-transform: capitalize;'>";
+                                                            echo "<td>".$this->site_model->get_prod_batch($pdp->prod_batch_id)->uq_id."</td>";
+                                                            echo "<td>".$this->site_model->get_process($this->site_model->get_assigned_process($pdp->assigned_process_id)->process_id)->name."</td>";
+                                                            echo "<td>$pdp->date_created</td>";
+                                                            echo "<td>".$this->site_model->get_staff($pdp->staff_id)->fullname."</td>";
 
-                                                                echo "<td>";
-                                                                $input_items = $this->db->query("SELECT * FROM prod_input_items WHERE prod_batch_process_id='$pdp->id' AND prod_batch_id='$pdp->prod_batch_id' AND manager_approved='1' ORDER BY id DESC");
-                                                                foreach ($input_items ->result() as $ii) {
-                                                                    echo "<p>".$this->site_model->get_store_item($ii->store_item_id)->item_name." - ".$ii->quantity." ".$this->site_model->get_store_item($ii->store_item_id)->unit."</p>";
-                                                                }
-                                                                echo "</td>";
+                                                            echo "<td>";
+                                                            $input_items = $this->db->query("SELECT * FROM prod_input_items WHERE prod_batch_process_id='$pdp->id' AND prod_batch_id='$pdp->prod_batch_id' AND manager_approved='1' ORDER BY id DESC");
+                                                            foreach ($input_items ->result() as $ii) {
+                                                                echo "<p>".$this->site_model->get_store_item($ii->store_item_id)->item_name." - ".$ii->quantity." ".$this->site_model->get_store_item($ii->store_item_id)->unit."</p>";
+                                                            }
+                                                            echo "</td>";
 
-                                                                echo "<td>";
-                                                                echo "<button class='btn btn-primary btn-xs shwAppModal' data-all='".json_encode($d)."' ><i class='fa fa-mark'></i> Approve </button>";
-                                                                echo " <button class='btn btn-danger btn-xs shwDecModal' data-all='".json_encode($d)."'><i class='fa fa-trash'></i> Decline</button>";
-                                                                echo "</td>";
-                                                                
-                                                                
-                                                                echo "</tr>";
-                                                                 $sn++; 
-                                                            } 
-                                                        }
-                                                    
-                                                        
+                                                            echo "<td>";
+                                                            echo "<button class='btn btn-primary btn-xs shwAppModal' data-all='".json_encode($d)."' ><i class='fa fa-mark'></i> Approve </button>";
+                                                            echo " <button class='btn btn-danger btn-xs shwDecModal' data-all='".json_encode($d)."'><i class='fa fa-trash'></i> Decline</button>";
+                                                            echo "</td>";
+                                                            
+                                                            
+                                                            echo "</tr>";
+                                                             $sn++; 
+                                                        } 
+                                                        else{
+
+                                                            echo "<tr style='text-transform: capitalize;'>";
+                                                            echo "<td>".$this->site_model->get_prod_batch($pdp->prod_batch_id)->uq_id."</td>";
+                                                            echo "<td>".$this->site_model->get_process($this->site_model->get_assigned_process($pdp->assigned_process_id)->process_id)->name."</td>";
+                                                            echo "<td>$pdp->date_created</td>";
+                                                            echo "<td>".$this->site_model->get_staff($pdp->staff_id)->fullname."</td>";
+
+                                                            echo "<td>";
+                                                            $input_items = $this->db->query("SELECT * FROM prod_input_items WHERE prod_batch_process_id='$pdp->id' AND prod_batch_id='$pdp->prod_batch_id' AND manager_approved='1' ORDER BY id DESC");
+                                                            foreach ($input_items ->result() as $ii) {
+                                                                echo "<p>".$this->site_model->get_store_item($ii->store_item_id)->item_name." - ".$ii->quantity." ".$this->site_model->get_store_item($ii->store_item_id)->unit."</p>";
+                                                            }
+                                                            echo "</td>";
+
+                                                            echo "<td>";
+                                                            echo "<p>Awaiting Approval from Store<p>";
+                                                            echo "</td>";
+                                                            
+                                                            
+                                                            echo "</tr>";
+                                                             $sn++; 
+                                                        } 
+                                                    }
                                                 ?>
 
                                             </tbody>

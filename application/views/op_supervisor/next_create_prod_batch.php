@@ -125,7 +125,7 @@
                                     
                                     <div class="panel-body">
 
-                                         <div class="form-group col-xs-12">
+                                         <!-- <div class="form-group col-xs-12">
                                             <label>Production Batch: <?php echo $_SESSION['cache_form_prod_batch']['id']; ?></label><br>
                                             <label>Production Batch Process: <?php echo $this->site_model->get_prod_batch($_SESSION['cache_form_prod_batch']['id'])->current_ass_process_id; ?></label>
                                             <?php 
@@ -137,7 +137,7 @@
                                             ?>
                                             <br>
                                             <label>Next Production Batch Process: <?php echo $this->site_model->get_biz_next_assigned_process($bb_line, $_SESSION['cache_form_prod_batch']['id'])->id; ?></label>
-                                        </div>
+                                        </div> -->
                                         <?php
                                             // unset($_SESSION['cache_form_prod_batch']);
                                             if(!isset($_SESSION['cache_form_prod_batch']) OR empty($_SESSION['cache_form_prod_batch']['id'])){

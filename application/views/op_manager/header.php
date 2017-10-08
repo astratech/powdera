@@ -210,14 +210,11 @@
                         <a href="<?php echo $this->full_url; ?>writeoff.php"><i class="fa fa-circle-o"></i><span>Write Off Materials</span></a>
                     </li>
 
-                    <!-- <li class="active">
-                        <a href="<?php echo $this->full_url; ?>approve_sales.php"><i class="fa fa-circle-o"></i><span>Approve Sales</span></a>
+                    <li class="active">
+                        <a href="<?php echo $this->full_url; ?>item_requests.php"><i class="fa fa-circle-o"></i><span>Item Requests</span></a>
                     </li>
 
-                    <li class="active">
-                        <a href="<?php echo $this->full_url; ?>approve_leave.php"><i class="fa fa-circle-o"></i><span>Approve Leave</span></a>
-                    </li>
-                     -->
+
 
                     <li class="active">
                         <a href="<?php echo $this->full_url; ?>leave.php">
