@@ -193,20 +193,6 @@ class Site_model extends CI_Model {
         $output = json_encode($output);
         return json_decode($output); 
 
-
-        // $q = $this->db->query("SELECT * FROM assigned_process WHERE business_line_id='$biz_line_id' AND id!='$id' ORDER BY process_order ASC LIMIT 0,1");
-        // $output = [];
-        // if($q->num_rows() > 0){
-        //     $output = $q->row();
-        // }
-        // else{
-        //     foreach ($q->field_data() as $d) {
-        //         $output[$d->name] = null;
-        //     }
-        // }       
-
-        // $output = json_encode($output);
-        // return json_decode($output); 
     }
 
     public function get_last_prod_batch_process($prod_batch_id, $prod_batch_process_id){
@@ -409,6 +395,104 @@ class Site_model extends CI_Model {
         
     }
 
+    public function calc_sys_total_sales(){
+        $total = 0;
+
+        $q1 = $this->db->query("SELECT * FROM customer_requests WHERE status='delivered'");
+        if($q1->num_rows() > 0){
+            foreach ($q1->result() as $d) {
+                $total = $d->amount + $total;
+            }
+        }
+
+        return $total;
+        
+    }
+
+    public function calc_total_warehouse_prod(){
+        $total = 0;
+        $st = $this->db->query("SELECT * FROM prod_batch WHERE done='1' AND is_approved='1' ORDER BY id DESC");
+        foreach ($st->result() as $r) {
+            $qq = $this->db->query("SELECT * FROM prod_output_items WHERE prod_batch_id='$r->id' ORDER BY id DESC LIMIT 0,1");
+            foreach ($qq->result() as $i) {
+                $w_qty = $i->quantity;
+            }
+            $total = $w_qty + $total;
+        }
+
+        return $total;
+        
+    }
+
+    public function is_staff_on_leave($staff_id){
+
+        $date = date("Y-m-d H:i:s");
+        $st = $this->db->query("SELECT * FROM leaves WHERE is_approved='1' AND staff_id='$staff_id' AND date_to>'$date' ORDER BY id DESC");
+        if($st->num_rows() > 0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }        
+    }
+
+    public function calc_total_staff(){
+        $total = 0;
+        $st = $this->db->query("SELECT * FROM staffs WHERE is_approved='1' ORDER BY id DESC");
+        foreach ($st->result() as $r) {
+
+            $total++;
+        }
+
+        return $total;        
+    }
+
+    public function calc_staff_available(){
+        $total = 0;
+        $st = $this->db->query("SELECT * FROM staffs WHERE is_approved='1' ORDER BY id DESC");
+        foreach ($st->result() as $r) {
+
+            if($this->site_model->is_staff_on_leave($r->id)){
+
+            }
+            else{
+                $total++;
+            }
+        }
+
+        return $total;        
+    }
+
+    public function calc_total_prod_input($prod_batch_id){
+        $total = 0;
+        $st = $this->db->query("SELECT * FROM prod_input_items WHERE prod_batch_id='$prod_batch_id' ORDER BY id DESC");
+        foreach ($st->result() as $r) {
+            $total++;
+        }
+
+        return $total;        
+    }
+
+    public function calc_total_prod_output($prod_batch_id){
+        $total = 0;
+        $st = $this->db->query("SELECT * FROM prod_output_items WHERE prod_batch_id='$prod_batch_id' ORDER BY id DESC");
+        foreach ($st->result() as $r) {
+            $total++;
+        }
+
+        return $total;        
+    }
+
+    public function calc_total_prod_defects($prod_batch_id){
+        $total = 0;
+        $st = $this->db->query("SELECT * FROM prod_defects WHERE prod_batch_id='$prod_batch_id' ORDER BY id DESC");
+        foreach ($st->result() as $r) {
+            $total++;
+        }
+
+        return $total;        
+    }
+
     public function get_prod_batch_output($prod_batch_id){
         $q = $this->db->query("SELECT * FROM prod_output_items WHERE prod_batch_id='$prod_batch_id' ORDER BY id DESC LIMIT 0,1");
         $output = [];
@@ -439,5 +523,35 @@ class Site_model extends CI_Model {
 
         $output = json_encode($output);
         return json_decode($output); 
+    }
+
+    public function get_current_prod_batch_details(){
+        $total = 0;
+        $st = $this->db->query("SELECT * FROM prod_batch WHERE done='0' AND is_approved='1' ORDER BY id DESC LIMIT 0,1");
+        $output = [];
+        if($st->num_rows() > 0){
+            foreach ($st->result() as $r) {
+                $prod_batch_id = $r->id;
+            }
+
+            $output['input'] = $this->site_model->calc_total_prod_input($prod_batch_id);
+            $output['output'] = $this->site_model->calc_total_prod_output($prod_batch_id);
+            $output['defects'] = $this->site_model->calc_total_prod_defects($prod_batch_id);
+
+        }
+        else{
+            $s2 = $this->db->query("SELECT * FROM prod_batch WHERE done='1' AND is_approved='1' ORDER BY id DESC LIMIT 0,1");
+            foreach ($s2->result() as $r) {
+                $prod_batch_id = $r->id;
+            }
+
+            $output['input'] = $this->site_model->calc_total_prod_input($prod_batch_id);
+            $output['output'] = $this->site_model->calc_total_prod_output($prod_batch_id);
+            $output['defects'] = $this->site_model->calc_total_prod_defects($prod_batch_id);
+        }
+        
+
+        $output = json_encode($output);
+        return json_decode($output);         
     }
 }

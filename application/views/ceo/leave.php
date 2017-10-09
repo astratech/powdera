@@ -107,6 +107,7 @@
                                                         echo "<td>$sn</td>";
                                                         echo "<td>";
                                                         echo "<p>".$this->site_model->get_staff($r->staff_id)->fullname."</p>";
+                                                        echo "<p>".$this->site_model->get_record("depts", $this->site_model->get_staff($r->staff_id)->dept_id)->title."</p>";
                                                         echo "</td>";
                                                         echo "<td>$r->leave_type</td>";
                                                         echo "<td>".date("d-M-Y", strtotime($r->date_from))."</td>";

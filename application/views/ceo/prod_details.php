@@ -63,108 +63,136 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                                <?php 
-                                    if(isset($_SESSION['notification'])){
-
-                                        echo $_SESSION['notification'];
-
-                                    }
-                                ?>
                                 <section class="panel">
                                     <header class="panel-heading panel-border">
-                                        Sales Records
+                                        All Production History
                                     <span class="tools pull-right">
                                         <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
                                     </span>
                                     </header>
-                                    <div class="panel-body table-responsive">
-                                        <table class="table convert-data-table table-striped table-hover table-bordered">
+                                    <div class="panel-body table-responsive">                                       
+                                        <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>SN</th>
-                                                    <th>Request Code</th>
-                                                    <th>Customer Details</th>
-                                                    <th>Product Details</th>
-                                                    <th>Quantity</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
+                                                    <th>S/N</th>
+                                                    <th>Batch Code</th>
+                                                    <th>Operations Supervisor</th>
+                                                    <th>Line of Business</th>
+                                                    <th>Raw Materials Used</th>
+                                                    <th>Total Defects</th>
+                                                    <th>Qty sent to warehouse</th>
+                                                    <th>Date Created</th>
                                                 </tr>
                                             </thead>
-                                            <tbody style="text-align: left;">
+                                            <tbody style="text-align: left; color: #000;">
+
                                                 <?php
                                                     $sn = 1;
 
-                                                    $st = $this->db->query("SELECT * FROM customer_requests WHERE status='delivered' ORDER BY id DESC");
+                                                    $st = $this->db->query("SELECT * FROM prod_batch WHERE done='1' ORDER BY id DESC");
                                                     foreach ($st->result() as $r) {
+                                                       
+
                                                         echo "<tr style='text-transform: capitalize;'>";
 
                                                         echo "<td>$sn</td>";
+                                                        
                                                         echo "<td>$r->uq_id</td>";
-                                                        echo "<td>".$this->site_model->get_customer($r->customer_id)->name."</td>";
-                                                        echo "<td>".$this->site_model->get_prod_output_item($this->site_model->get_sales_product($r->sales_product_id)->prod_output_item_id)->item." </td>";
-                                                        echo "<td>$r->quantity ".$this->site_model->get_prod_output_item($this->site_model->get_sales_product($r->sales_product_id)->prod_output_item_id)->unit ."</td>";
-                                                        echo "<td>$r->amount</td>";
+                                                        echo "<td>".$this->site_model->get_staff($r->staff_id)->fullname."</td>";
+                                                        echo "<td>".$this->site_model->get_business_line($r->business_line_id)->name."</td>";
+
                                                         echo "<td>";
-                                                        echo "<p>$r->status <br></p>";
+                                                        $st = $this->db->query("SELECT * FROM prod_input_items WHERE prod_batch_id='$r->id' ORDER BY id ASC");
+                                                        foreach ($st->result() as $i) {
+                                                            echo "<p> - ".$this->site_model->get_store_item($i->store_item_id)->item_name."</p>";
+
+                                                        }
                                                         echo "</td>";
 
-    
+                                                        $td = $this->db->query("SELECT * FROM prod_defects WHERE prod_batch_id='$r->id' ORDER BY id ASC");
+                                                        $total_defects = 0;
+                                                        foreach ($td->result() as $i) {
+                                                            $total_defects = $total_defects + $i->quantity;
+
+                                                        }
+                                                        echo "<td>$total_defects</td>";
+
+                                                        $qq = $this->db->query("SELECT * FROM prod_output_items WHERE prod_batch_id='$r->id' ORDER BY id DESC LIMIT 0,1");
+                                                        $total_defects = 0;
+                                                        foreach ($qq->result() as $i) {
+                                                            $w_item = $i->item;
+                                                            $w_qty = $i->quantity;
+                                                            $w_unit = $i->unit;
+
+                                                        }
+
+                                                        echo "<td><p>$w_item</p> <p>$w_qty $w_unit</p></td>";
+                                                                                                            
+                                                        echo "<td>".date("d-M-Y H:i:s", strtotime($r->date_created))."</td>";
+
+                                                      
                                                         echo "</tr>";
 
                                                         $sn++;   
                                                     }
 
-                                                ?>  
+                                                ?>
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </section>
                             </div>
 
-                             <div class="col-sm-12">
+                            <div class="col-sm-12">
                                 <section class="panel">
                                     <header class="panel-heading panel-border">
-                                        Total Registered Customers
+                                        All Defect Records
                                     <span class="tools pull-right">
                                         <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
                                     </span>
                                     </header>
-                                    <div class="panel-body table-responsive">
-                                        <table class="table convert-data-table table-striped table-hover table-bordered">
+                                    <div class="panel-body table-responsive">                                       
+                                        <table class="table convert-data-table table-striped table-bordered">
                                             <thead style="text-align: right;">
                                                 <tr>
-                                                    <th>SN</th>
-                                                    <th>Customer Code</th>
-                                                    <th>Customer Name</th>
-                                                    <th>Phone Number</th>
-                                                    <th>Mailing Address</th>
+                                                    <th>Production Batch</th>
+                                                    <th>Quantity Received</th>
+                                                    <th>Number of Defects</th>
+                                                    <th>Date Created</th>
                                                 </tr>
                                             </thead>
-                                            <tbody style="text-align: left;">
+                                            <tbody style="text-align: left; color: #000;">
+
                                                 <?php
                                                     $sn = 1;
 
-                                                    $st = $this->db->query("SELECT * FROM customers ORDER BY id DESC");
+                                                    $st = $this->db->query("SELECT * FROM qaqc ORDER BY id DESC");
                                                     foreach ($st->result() as $r) {
-                                                        echo "<tr style='text-transform: capitalize;'>";
+                                                       
 
-                                                        echo "<td>$sn</td>";
-                                                        echo "<td>$r->uq_id</td>";
-                                                        echo "<td>$r->name</td>";
-                                                        echo "<td>$r->mobile</td>";
-                                                        echo "<td>$r->address</td>";
-    
+                                                        echo "<tr style='text-transform: capitalize;'>";
+                                                        
+                                                        echo "<td>".$this->site_model->get_record("prod_batch", $r->prod_batch_id)->uq_id."</td>";
+                                                        echo "<td>$r->qty_received</td>";
+                                                        echo "<td>$r->num_of_defects</td>";
+             
+                                                        echo "<td>".date("d-M-Y", strtotime($r->date_created))."</td>";
+
                                                         echo "</tr>";
 
                                                         $sn++;   
                                                     }
 
-                                                ?>  
+                                                ?>
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </section>
                             </div>
+
+
                         </div>
 
                     </div>

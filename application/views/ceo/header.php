@@ -21,8 +21,7 @@
         <!-- Rickshaw Chart Depencencies -->
         <link rel="stylesheet" href="<?php echo $this->config->item('assets_url'); ?>/bower_components/rickshaw/rickshaw.min.css">
 
-        <!--easypiechart-->
-        <link rel="stylesheet" href="<?php echo $this->config->item('assets_url'); ?>/assets/js/jquery-easy-pie-chart/easypiechart.css">
+       
 
         <!--horizontal-timeline-->
         <link rel="stylesheet" href="<?php echo $this->config->item('assets_url'); ?>/assets/js/horizontal-timeline/css/style.css">
@@ -193,6 +192,10 @@
 
                     <li class="active">
                         <a href="<?php echo $this->full_url; ?>leave"><i class="fa fa-bookmark-o"></i><span>Leave Management </span></a>
+                    </li>
+
+                    <li class="active">
+                        <a href="<?php echo $this->full_url; ?>prod_details"><i class="fa fa-bookmark-o"></i><span>Production Details </span></a>
                     </li>
 
                     <li class="active">

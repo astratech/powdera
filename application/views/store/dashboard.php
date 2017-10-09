@@ -89,7 +89,7 @@
                                                     <th>Item Name</th>
                                                     <th>Quantity Supplied</th>
                                                     <th>Unit</th>
-                                                    <th>Percentage Available</th>
+                                                    <th>Percentage Used</th>
                                                     
                                                 </tr>
                                             </thead>
@@ -103,8 +103,11 @@
                                                        $left = $r->quantity - ($this->site_model->calc_prod_input_items_qty($r->id));
 
                                                         $p1 = 100 - (($left/$r->quantity) * 100);
+                                                        $p1 = round($p1);
+                                                        $p_left = 100 - $p1;
+                                                        
 
-                                                        if($p1 < 50){
+                                                        if($p_left < 50){
 
                                                             echo "<tr style='text-transform: capitalize;'>";
 
@@ -119,7 +122,7 @@
                                                             echo "<td>$r->unit</td>";
                                                             if($p1 < 30){
                                                                 echo "<td>";
-                                                                echo "<p>$p1%</p>";
+                                                                echo "<p>".round($p1)."%</p>";
                                                                 echo "<div class='progress progress-striped'>
                                                                         <div style='width: $p1%'' aria-valuemax='100' aria-valuemin='0' aria-valuenow='$p1' role='progressbar' class='progress-bar progress-bar-xs progress-bar-danger'>
                                                                         </div>
@@ -129,7 +132,7 @@
                                                             }
                                                             else{
                                                                 echo "<td>";
-                                                                echo "<p>$p1%</p>";
+                                                                echo "<p>".round($p1)."%</p>";
                                                                 echo "<div class='progress progress-striped'>
                                                                         <div style='width: $p1%'' aria-valuemax='100' aria-valuemin='0' aria-valuenow='$p1' role='progressbar' class='progress-bar progress-bar-xs progress-bar-warning'>
                                                                         </div>
