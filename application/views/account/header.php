@@ -203,6 +203,18 @@
                     </li>
 
                     <li class="active">
+                        <a><i class="fa fa-circle-o"></i><span>Expenses Management</span><i class="fa fa-angle-right pull-right"></i></a>
+                        <ul class="nav nav-sub">
+                            <li class="">
+                                <a href="<?php echo $this->full_url; ?>exp_category.php"><i class="fa fa-circle-o"></i><span>Categories </span></a>
+                            </li>
+                            <li class="">
+                                <a href="<?php echo $this->full_url; ?>expenses.php"><i class="fa fa-circle-o"></i><span>History </span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="active">
                         <a><i class="fa fa-circle-o"></i><span>Vendor Management</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="nav nav-sub">
                             <li class="">
