@@ -187,7 +187,7 @@
                     </li>
 
                     <li class="active">
-                        <a href="<?php echo $this->full_url; ?>expense"><i class="fa fa-user-plus"></i><span>Expense Records </span></a>
+                        <a href="<?php echo $this->full_url; ?>expenses"><i class="fa fa-user-plus"></i><span>Expense Records </span></a>
                     </li>
 
                     <li class="active">
