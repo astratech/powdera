@@ -61,7 +61,7 @@
                                         <i class="fa fa-pie-chart"></i>
                                     </div>
                                     <div class="panel-body">
-                                        <h1 class="light-txt" style="color: #fff!important;">0</h1>
+                                        <h1 class="light-txt" style="color: #fff!important;">₦ <?php echo $this->site_model->calc_sys_total_expenses(); ?></h1>
                                         <div class=" pull-right"></i></div>
                                         <strong class="text-uppercase">Expenses To date</strong>
                                     </div>
@@ -329,13 +329,27 @@
                                                 <table  class="table table-hover latest-order">
                                                     <thead>
                                                     <tr>
-                                                        <th>UNIQUE ID</th>
-                                                        <th>Customer Name</th>
-                                                        <th>Status</th>
+                                                        <th>Title</th>
+                                                        <th>Description</th>
+                                                        <th>Amount</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    
+                                                    <?php
+                                                        $st = $this->db->query("SELECT * FROM expenses WHERE is_approved='1' ORDER BY id DESC LIMIT 0,10");
+                                                        foreach ($st->result() as $r) {
+                                                           
+
+                                                            echo "<tr style='text-transform: capitalize;'>";
+
+                                                            echo "<td>$r->title</td>";
+                                                            echo "<td>$r->description</td>";
+                                                            echo "<td>$r->amount</td>";
+
+                                                            echo "</tr>";
+                                                        }
+
+                                                    ?>
                                                     </tbody>
                                                 </table>
                                             </div>

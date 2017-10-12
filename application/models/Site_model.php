@@ -409,6 +409,20 @@ class Site_model extends CI_Model {
         
     }
 
+    public function calc_sys_total_expenses(){
+        $total = 0;
+
+        $q1 = $this->db->query("SELECT * FROM expenses WHERE is_approved='1'");
+        if($q1->num_rows() > 0){
+            foreach ($q1->result() as $d) {
+                $total = $d->amount + $total;
+            }
+        }
+
+        return $total;
+        
+    }
+
     public function calc_total_warehouse_prod(){
         $total = 0;
         $st = $this->db->query("SELECT * FROM prod_batch WHERE done='1' AND is_approved='1' ORDER BY id DESC");
