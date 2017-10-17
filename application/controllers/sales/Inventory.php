@@ -68,93 +68,29 @@ class Inventory extends CI_Controller {
             
         }
 
-        if(isset($_POST['update_customer'])){ 
+        if(isset($_POST['delete'])){
+
+            $c_id =  $this->site_model->fil_num($this->input->post("c_id"));
             
-            $customer_id =  $this->site_model->fil_string($this->input->post("customer_id"));
-            $name =  $this->site_model->fil_string($this->input->post("name"));
-            $email =  $this->site_model->fil_email($this->input->post("email"));
-            $mobile =  $this->site_model->fil_string($this->input->post("mobile"));
-            $uq_id =  $this->site_model->fil_string($this->input->post("uq_id"));
-            $city =  $this->site_model->fil_string($this->input->post("city"));
-            $state =  $this->site_model->fil_string($this->input->post("state"));
-            $address =  $this->site_model->fil_text($this->input->post("address"));
-
-
-            //check for empty fields
-            foreach ($_POST as $key => $val) {
-                
-                if (empty($val) OR empty($customer_id)) {
-
-                    $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
-                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
-                                <strong>ERROR: </strong> Fill the empty fields
-                            </div>";
-                    header("Location: $url".$mod_dir."customers");
-                    exit();
-                }
-
-            } 
-
-
-            $r = $this->db->query("SELECT * FROM customers WHERE (name='$name' OR email='$email' OR mobile='$mobile' OR uq_id='$uq_id') AND id!='$customer_id'");
-            if($r->num_rows() > 0){
-                $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
-                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
-                                <strong>ERROR: </strong> Customer already exist. 
-                            </div>";
-
-                    header("Location: $url".$mod_dir."customers");
-                    exit();
-            }
-
-            $date = date("Y-m-d H:i:s");
-
-            $up_data = ['name'=>$name, 
-                    'email'=>$email, 
-                    'mobile'=>$mobile, 
-                    'city'=>$city, 
-                    'address'=>$address, 
-                    'state'=>$state,];
-
-            $where = "id = $customer_id";
-
-            $str = $this->db->update_string('customers', $up_data, $where);
-
-
-            $this->db->query("$str");
-
-            $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
-                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
-                    <strong>Operation Successful </strong> 
-                  </div>";
-            header("Location: $url".$mod_dir."customers");
-            exit();
-            
-        }
-
-        if(isset($_POST['delete_customer'])){
-
-            $customer_id =  $this->site_model->fil_num($this->input->post("customer_id"));
-            
-            if(empty($customer_id)){
+            if(empty($c_id)){
                   $_SESSION['notification'] = "<div class='alert alert-callout alert-danger alert-dismissable' role='alert'>
                                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
                                 <strong>ERROR: </strong> Operation Failed
                             </div>";
 
-                    header("Location: $url".$mod_dir."customers");
+                    header("Location: $url".$mod_dir."inventory");
                     exit();
             }
 
             $date = date("Y-m-d H:i:s");
 
-            $this->db->query("DELETE FROM customers WHERE id='$customer_id'");
+            $this->db->query("DELETE FROM sales_product WHERE id='$c_id'");
 
             $_SESSION['notification'] = "<div class='alert alert-callout alert-success alert-dismissable' role='alert'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>
                     <strong>Operation Successful </strong> 
                   </div>";
-            header("Location: $url".$mod_dir."customers");
+            header("Location: $url".$mod_dir."inventory");
             exit();
             
         }

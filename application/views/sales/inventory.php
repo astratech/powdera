@@ -8,7 +8,7 @@
                         try{
                             var d = $(this).data('all');
 
-                            $("#app-modal input[name='customer_id']").val(d.id);
+                            $("#app-modal input[name='c_id']").val(d.id);
                             $("#app-modal").modal("show");
                         }
                         catch(err){
@@ -217,71 +217,13 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="my_modalLabel">
-                <div class="modal-dialog" role="dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Salary</h4>
-                        </div>
-                        <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
-                        <div class="modal-body">
-                                <div class="row dform" style="padding: 20px;">
-                                    <div class="form-group col-xs-12">
-                                        <label>Customer ID</label>
-                                        <input type="text" class="form-control" name="uq_id" required="required" value="<?php echo $this->site_model->gen_uq_id('CTM'); ?>" readonly>
-                                    </div>
-
-                                    <div class="form-group col-xs-12">
-                                        <label>Name</label>
-                                        <input type="text" class="form-control" name="name" required="required" value="<?php echo isset($_SESSION['cache_form']['name']) ? $_SESSION['cache_form']['name'] : '' ?>">
-                                    </div>
-
-                                    <div class="form-group col-xs-12">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" name="email" required="required" value="<?php echo isset($_SESSION['cache_form']['email']) ? $_SESSION['cache_form']['email'] : '' ?>">
-                                    </div>
-
-                                    <div class="form-group col-xs-12">
-                                        <label>Mobile</label>
-                                        <input type="number" class="form-control" name="mobile" required="required" value="<?php echo isset($_SESSION['cache_form']['mobile']) ? $_SESSION['cache_form']['mobile'] : '' ?>">
-                                    </div>
-
-                                    <div class="form-group col-xs-12">
-                                        <div class="col-xs-6">
-                                            <label>City</label>
-                                            <input type="text" class="form-control" name="city" required="required" value="<?php echo isset($_SESSION['cache_form']['city']) ? $_SESSION['cache_form']['city'] : '' ?>">
-                                        </div>
-
-                                        <div class="col-xs-6">
-                                            <label>State</label>
-                                            <input type="text" class="form-control" name="state" required="required" value="<?php echo isset($_SESSION['cache_form']['state']) ? $_SESSION['cache_form']['state'] : '' ?>">
-                                        </div>
-                                        
-                                    </div>
-
-                                    <div class="form-group col-xs-12">
-                                        <label>Address</label>
-                                        <textarea class="form-control" name="address" required="required"></textarea>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" name="customer_id" value="" />
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <input type="submit" class="btn btn-primary" value="Update" name="update_customer" />
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
             <div class="modal fade" id="app-modal" tabindex="-1" role="dialog" aria-labelledby="my_modalLabel">
                 <div class="modal-dialog" role="dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Delete Customer</h4>
+                            <h4 class="modal-title" id="myModalLabel">Delete Product</h4>
                         </div>
                         <form action="" method="POST">
                         <div class="modal-body">
@@ -289,9 +231,9 @@
                             
                         </div>
                         <div class="modal-footer">
-                            <input type="hidden" name="customer_id" value="" />
+                            <input type="hidden" name="c_id" value="" />
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <input type="submit" class="btn btn-primary" value="Continue" name="delete_customer" />
+                            <input type="submit" class="btn btn-primary" value="Continue" name="delete" />
                         </div>
                         </form>
                     </div>
