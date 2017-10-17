@@ -114,6 +114,7 @@
                                                     <th>Mail Address</th>
                                                     <th>City</th>
                                                     <th>State</th>
+                                                    <th>Sales Personnel</th>
                                                     <th>Date Created</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -137,7 +138,9 @@
                                                         echo "<td>$r->mobile</td>";                                                        
                                                         echo "<td>$r->address</td>";                                                        
                                                         echo "<td>$r->city</td>";                                                        
-                                                        echo "<td>$r->state</td>";                                                        
+                                                        echo "<td>$r->state</td>"; 
+
+                                                        echo "<td>".$this->site_model->get_record("staffs", $r->staff_id)->uq_id."</td>";                                                        
                                                         echo "<td>".date("d/M/Y H:i:s", strtotime($r->date_created))."</td>";
 
                                                         echo "<td>";

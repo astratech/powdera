@@ -67,6 +67,7 @@ class Customers extends CI_Controller {
                     'city'=>$city, 
                     'address'=>$address, 
                     'state'=>$state, 
+                    'staff_id'=>$this->staff_id, 
                     'date_created'=>$date]);
 
 
