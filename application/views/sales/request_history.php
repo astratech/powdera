@@ -88,6 +88,7 @@
                                                     <th>Quantity</th>
                                                     <th>Price</th>
                                                     <th>Status</th>
+                                                    <th>Sales Personnel</th>
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: left;">
@@ -108,6 +109,7 @@
                                                         echo "<p>$r->status <br></p>";
                                                         echo "</td>";
 
+                                                        echo "<td>".$this->site_model->get_record("staffs", $this->site_model->get_record("customers", $r->customer_id)->staff_id)->uq_id."</td>";
     
                                                         echo "</tr>";
 

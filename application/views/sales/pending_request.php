@@ -88,6 +88,7 @@
                                                     <th>Quantity</th>
                                                     <th>Price</th>
                                                     <th>Status</th>
+                                                    <th>Sales Personnel</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -109,6 +110,8 @@
                                                         echo "<p>$r->status <br></p>";
                                                         echo "<button class='btn btn-primary btn-sm shwAppModal btn-link' data-all='".json_encode($r)."'> Change Status</button>";
                                                         echo "</td>";
+
+                                                        echo "<td>".$this->site_model->get_record("staffs", $this->site_model->get_record("customers", $r->customer_id)->staff_id)->uq_id."</td>";
                                                         if($r->status == 'pending'){
                                                             echo "<td>";
                                                             echo "<button class='btn btn-danger btn-sm shwDecModal btn-link' data-all='".json_encode($r)."'> Decline</button>";

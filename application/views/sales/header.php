@@ -195,6 +195,10 @@
                     </li>
 
                     <li class="active">
+                        <a href="<?php echo $this->full_url; ?>catalog.php"><i class="fa fa-circle-o"></i><span>Product Catalog </span></a>
+                    </li>
+
+                    <li class="active">
                         <a><i class="fa fa-circle-o"></i><span>Customers Requests</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="nav nav-sub">
                             <li class="">
