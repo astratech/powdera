@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div style='width: 400px; height: 700px; background-color: #62549a; text-align: center;'>
+       <!--  <div style='width: 400px; height: 700px; background-color: #62549a; text-align: center;'>
            <img src='<?php echo $this->config->item('assets_url'); ?>/images/logo.png' width='130px' alt=''/>
 
            <h3>Hello, Below are your Login Details</h3>
@@ -41,7 +41,7 @@
                <p>Password: </p>
                <p>Department: </p>
            </div>
-        </div>
+        </div> -->
 
         
 
