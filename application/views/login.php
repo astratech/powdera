@@ -53,6 +53,9 @@
                         Remember me
                     </div>
                     <input type="submit" class="btn btn-info btn-block" value="Login" name="login" />
+                    <div class="form-group text-center" style="margin-top: 30px;">
+                        <a href="<?php echo $this->config->base_url(); ?>forgot">Forgot Password??</a>
+                    </div>
                 </form>
                    
                 <div class="text-center copyright-txt" style="color: #fff;">
