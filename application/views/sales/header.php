@@ -230,6 +230,10 @@
                     <li class="active">
                         <a href="<?php echo $this->full_url; ?>payslip.php"><i class="fa fa-credit-card"></i><span>Pay Slip </span></a>
                     </li>
+
+                    <li class="active">
+                        <a href="<?php echo $this->full_url; ?>profile.php"><i class="fa fa-user"></i><span>Profile</span></a>
+                    </li>
                 </ul>
                 <div>
                     <img src="<?php echo $this->config->item('assets_url'); ?>/images/logo.png" alt="" class="img-responsive" style="margin-top: 80%; width: 100%; opacity: .3;" />
