@@ -110,8 +110,8 @@
                                                     <th>Product ID</th>
                                                     <th>Product Name</th>
                                                     <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Unit</th>
+                                                    <th>Quantity In Store</th>
+                                                    <th>Quantity Available</th>
                                                     <th>Date Created</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -124,7 +124,7 @@
                                                     $st = $this->db->query("SELECT * FROM sales_product ORDER BY id DESC");
                                                     foreach ($st->result() as $r) {
                                                        
-
+                                                        $r->quantity_available = ($r->quantity - $this->site_model->calc_req_sale_qty($r->id));
                                                         echo "<tr style='text-transform: capitalize;'>";
 
                                                         echo "<td>$sn</td>";
@@ -133,9 +133,8 @@
                                                         echo "<td>".$this->site_model->get_prod_output_item($r->prod_output_item_id)->item."</td>";
 
                                                         echo "<td>$r->price</td>";
-                                                        echo "<td>$r->quantity</td>";
-                                                        echo "<td>$r->unit</td>";
-                                                                                                                
+                                                        echo "<td>$r->quantity $r->unit</td>";
+                                                        echo "<td>$r->quantity_available $r->unit</td>";                                                                                                                
                                                         echo "<td>".date("d/M/Y H:i:s", strtotime($r->date_created))."</td>";
 
                                                         echo "<td>";
@@ -180,7 +179,9 @@
                                             <?php
                                                 $list = $this->db->query("SELECT * FROM prod_batch WHERE is_approved='1' ORDER BY id DESC");
                                                 foreach ($list->result() as $d) {
-                                                   echo "<option value='".$this->site_model->get_prod_batch_output($d->id)->id."'>".$this->site_model->get_prod_batch_output($d->id)->item." - ".$this->site_model->get_prod_batch_output($d->id)->quantity." - ".$this->site_model->get_prod_batch_output($d->id)->unit."</option>";
+                                                    $av = ($this->site_model->get_prod_batch_output($d->id)->quantity) - ($this->site_model->calc_pd_sales_prod_qty($this->site_model->get_prod_batch_output($d->id)->id));
+                                                   
+                                                   echo "<option value='".$this->site_model->get_prod_batch_output($d->id)->id."'>".$this->site_model->get_prod_batch_output($d->id)->item." - $av ".$this->site_model->get_prod_batch_output($d->id)->unit." Available.</option>";
                                                 }
                                             ?>
                                         </select>

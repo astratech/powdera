@@ -568,4 +568,17 @@ class Site_model extends CI_Model {
         $output = json_encode($output);
         return json_decode($output);         
     }
+
+    public function calc_pd_sales_prod_qty($prod_output_item_id){
+        $sp_qty = 0;
+        $sp = $this->db->query("SELECT * FROM sales_product WHERE prod_output_item_id='$prod_output_item_id' ORDER BY id DESC");
+        if($sp->num_rows() > 0){
+            foreach ($sp->result() as $r) {
+                $sp_qty = $r->quantity + $sp_qty;
+            }
+        }
+
+        return $sp_qty;
+
+    }
 }
