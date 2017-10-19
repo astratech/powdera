@@ -53,4 +53,5 @@ $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['customer'] = 'customer/login';
+$route['sales/invoice/(:num)'] = 'sales/invoice/index/$1';
 

@@ -2,6 +2,12 @@
             <script type="text/javascript">
                 //Ajax
                 $(document).ready(function () {
+                    
+
+                    $(".printNow").click(function (e) {
+                        e.preventDefault();
+                        $('.d-invoice').printThis();
+                    });
                 
                     $(".shwAppModal").click(function (e) {
                         e.preventDefault();
@@ -63,65 +69,80 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                                <?php 
-                                    if(isset($_SESSION['notification'])){
-
-                                        echo $_SESSION['notification'];
-
-                                    }
-                                ?>
-                                <section class="panel">
-                                    <header class="panel-heading panel-border">
-                                        Delivered Requests
-                                    <span class="tools pull-right">
-                                        <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
-                                    </span>
-                                    </header>
-                                    <div class="panel-body table-responsive">
-                                        <table class="table convert-data-table table-striped table-hover table-bordered">
-                                            <thead style="text-align: right;">
-                                                <tr>
-                                                    <th>SN</th>
-                                                    <th>Request Code</th>
-                                                    <th>Customer Details</th>
-                                                    <th>Product Details</th>
-                                                    <th>Quantity</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
-                                                    <th>Sales Personnel</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style="text-align: left;">
-                                                <?php
-                                                    $sn = 1;
-
-                                                    $st = $this->db->query("SELECT * FROM customer_requests WHERE status='delivered' ORDER BY id DESC");
-                                                    foreach ($st->result() as $r) {
-                                                        echo "<tr style='text-transform: capitalize;'>";
-
-                                                        echo "<td>$sn</td>";
-                                                        echo "<td>$r->uq_id</td>";
-                                                        echo "<td>".$this->site_model->get_customer($r->customer_id)->name."</td>";
-                                                        echo "<td>".$this->site_model->get_prod_output_item($this->site_model->get_sales_product($r->sales_product_id)->prod_output_item_id)->item."</td>";
-                                                        echo "<td>$r->quantity</td>";
-                                                        echo "<td>$r->amount</td>";
-                                                        echo "<td>";
-                                                        echo "<p>$r->status</p>";
-                                                        echo "<p><a href='".$this->full_url."invoice/$r->id' target='_blank' class='btn btn-danger'>View Invoice</a></p>";
-                                                        echo "</td>";
-
-                                                        echo "<td>".$this->site_model->get_record("staffs", $this->site_model->get_record("customers", $r->customer_id)->staff_id)->uq_id."</td>";
-    
-                                                        echo "</tr>";
-
-                                                        $sn++;   
-                                                    }
-
-                                                ?>  
-                                            </tbody>
-                                        </table>
+                               <div class="panel panel-body">
+                                    <h3 class="pull-left margin0">Invoice</h3>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-sm btn-info pull-right printNow" target="_blank"> <i class="fa fa-print"></i> Print Invoice</a>
                                     </div>
-                                </section>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row d-invoice">
+                            <div class="col-md-12">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <img src="<?php echo $this->config->item('assets_url'); ?>/images/logo.png" width="200px" alt=""/>
+                                            </div>
+
+                                            <div class="col-xs-6 text-right">
+                                                <h4>Invoice No.</h4>
+                                                <h4 class="text-navy"><?php echo $this->site_model->get_record("customer_requests", $id)->uq_id; ?></h4>
+                                                <span>To:</span>
+                                                <address>
+                                                    <strong><?php echo $this->site_model->get_record("customers", $this->site_model->get_record("customer_requests", $id)->customer_id)->name; ?></strong><br>
+                                                    <?php echo $this->site_model->get_record("customers", $this->site_model->get_record("customer_requests", $id)->customer_id)->uq_id; ?> <br><br>
+                                                    <abbr title="Phone">P: <?php echo $this->site_model->get_record("customers", $this->site_model->get_record("customer_requests", $id)->customer_id)->mobile; ?></abbr> <br>
+                                                    <abbr title="Phone">E: <?php echo $this->site_model->get_record("customers", $this->site_model->get_record("customer_requests", $id)->customer_id)->email; ?></abbr> 
+                                                </address>
+                                                <p>
+                                                    <span><strong>Invoice Date:</strong> <?php echo date("M d,Y"); ?></span><br>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover invoice-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Product</th>
+                                                            <th class="">Quantity</th>
+                                                            <th>Total</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <?php $sales_product_id = $this->site_model->get_record("customer_requests",$id)->sales_product_id; ?>
+                                                        <tbody>
+                                                            <tr style="text-transform: uppercase;">
+                                                                <td>1</td>
+                                                                <td><?php echo $this->site_model->get_sales_product($sales_product_id)->uq_id." - ".$this->site_model->get_prod_output_item($this->site_model->get_sales_product($sales_product_id)->prod_output_item_id)->item; ?></td>
+                                                                <td class=""><?php echo $this->site_model->get_record("customer_requests", $id)->quantity." ". $this->site_model->get_sales_product($sales_product_id)->unit; ?></td>
+                                                                <td>₦ <?php echo $this->site_model->get_record("customer_requests", $id)->amount; ?></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <table class="table table-hover invoice-total">
+                                                    <tbody>
+
+                                                    <tr>
+                                                        <td><strong>TOTAL :</strong></td>
+                                                        <td>₦ <?php echo $this->site_model->get_record("customer_requests", $id)->amount; ?></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <br/>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

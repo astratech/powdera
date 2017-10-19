@@ -72,6 +72,8 @@
         <!-- Bootstrap Date Range Picker Dependencies -->
         <script src="<?php echo $this->config->item('assets_url'); ?>/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
+        <script src="<?php echo $this->config->item('assets_url'); ?>/printjs.js"></script>
+
 
     </head>
     <body>

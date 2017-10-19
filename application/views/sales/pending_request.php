@@ -109,6 +109,7 @@
                                                         echo "<td>";
                                                         echo "<p>$r->status <br></p>";
                                                         echo "<button class='btn btn-primary btn-sm shwAppModal btn-link' data-all='".json_encode($r)."'> Change Status</button>";
+                                                        echo "<br><p><a href='".$this->full_url."invoice/$r->id' target='_blank' class='btn btn-danger btn-sm'>View Invoice</a></p>";
                                                         echo "</td>";
 
                                                         echo "<td>".$this->site_model->get_record("staffs", $this->site_model->get_record("customers", $r->customer_id)->staff_id)->uq_id."</td>";
