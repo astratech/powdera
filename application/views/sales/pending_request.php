@@ -89,8 +89,7 @@
                                                     <th>Price</th>
                                                     <th>Status</th>
                                                     <th>Sales Personnel</th>
-                                                    <th>CEO Approved</th>
-                                                    <th>Warehouse Approved</th>
+
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -108,45 +107,23 @@
                                                         echo "<td>".$this->site_model->get_prod_output_item($this->site_model->get_sales_product($r->sales_product_id)->prod_output_item_id)->item."</td>";
                                                         echo "<td>$r->quantity</td>";
                                                         echo "<td>$r->amount</td>";
-                                                        if($r->ceo_approved == 1 AND $r->warehouse_approved == 1){
+                                                        echo "<td>";
+                                                        echo "<p>$r->status <br></p>";
+                                                        echo "<button class='btn btn-primary btn-sm shwAppModal btn-link' data-all='".json_encode($r)."'> Change Status</button>";
+                                                        echo "<br><p><a href='".$this->full_url."invoice/$r->id' target='_blank' class='btn btn-danger btn-sm'>View Invoice</a></p>";
+                                                        echo "</td>";
+
+                                                        echo "<td>".$this->site_model->get_record("staffs", $this->site_model->get_record("customers", $r->customer_id)->staff_id)->uq_id."</td>";
+
+                                                        if($r->status == 'pending'){
                                                             echo "<td>";
-                                                            echo "<p>$r->status <br></p>";
-                                                            echo "<button class='btn btn-primary btn-sm shwAppModal btn-link' data-all='".json_encode($r)."'> Change Status</button>";
-                                                            echo "<br><p><a href='".$this->full_url."invoice/$r->id' target='_blank' class='btn btn-danger btn-sm'>View Invoice</a></p>";
+                                                            echo "<button class='btn btn-danger btn-sm shwDecModal btn-link' data-all='".json_encode($r)."'> Decline</button>";
                                                             echo "</td>";
-
-                                                            echo "<td>".$this->site_model->get_record("staffs", $this->site_model->get_record("customers", $r->customer_id)->staff_id)->uq_id."</td>";
-
-                                                            if($r->ceo_approved == 1){
-                                                                echo "<td>APPROVED</td>";
-                                                            }
-                                                            else{
-                                                                echo "<td></td>";
-                                                            }
-
-                                                            if($r->warehouse_approved == 1){
-                                                                echo "<td>APPROVED</td>";
-                                                            }
-                                                            else{
-                                                                echo "<td></td>";
-                                                            }
-
-                                                            if($r->status == 'pending'){
-                                                                echo "<td>";
-                                                                echo "<button class='btn btn-danger btn-sm shwDecModal btn-link' data-all='".json_encode($r)."'> Decline</button>";
-                                                                echo "</td>";
-                                                            }
-                                                            else{
-                                                                echo "<td></td>";
-                                                            }
                                                         }
                                                         else{
                                                             echo "<td></td>";
-                                                            echo "<td></td>";
-                                                            echo "<td></td>";
-                                                            echo "<td></td>";
-                                                            echo "<td></td>";
                                                         }
+
                                                         echo "</tr>";
 
                                                         $sn++;   

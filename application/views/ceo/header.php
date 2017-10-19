@@ -199,6 +199,10 @@
                     </li>
 
                     <li class="active">
+                        <a href="<?php echo $this->full_url; ?>pending_sp"><i class="fa fa-bookmark-o"></i><span>Sales Product Approval </span></a>
+                    </li>
+
+                    <li class="active">
                         <a href="<?php echo $this->full_url; ?>profile"><i class="fa fa-user"></i><span>Profile </span></a>
                     </li>
 

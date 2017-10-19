@@ -151,7 +151,7 @@
                                                 <?php
                                                     $sn = 1;
 
-                                                    $st = $this->db->query("SELECT * FROM sales_product ORDER BY id DESC");
+                                                    $st = $this->db->query("SELECT * FROM sales_product WHERE ceo_approved='1' AND warehouse_approved='1' ORDER BY id DESC");
                                                     foreach ($st->result() as $r) {
                                                         $r->quantity_available = ($r->quantity - $this->site_model->calc_req_sale_qty($r->id));
                                                         if($r->quantity_available > 0){

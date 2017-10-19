@@ -110,8 +110,10 @@
                                                     <th>Product ID</th>
                                                     <th>Product Name</th>
                                                     <th>Price</th>
-                                                    <th>Quantity In Store</th>
+                                                    <th>Quantity In Stock</th>
                                                     <th>Quantity Available</th>
+                                                    <th>CEO Approval</th>
+                                                    <th>WareHouse Approval</th>
                                                     <th>Date Created</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -134,7 +136,21 @@
 
                                                         echo "<td>$r->price</td>";
                                                         echo "<td>$r->quantity $r->unit</td>";
-                                                        echo "<td>$r->quantity_available $r->unit</td>";                                                                                                                
+                                                        echo "<td>$r->quantity_available $r->unit</td>"; 
+
+                                                        if($r->ceo_approved == 1){
+                                                            echo "<td>APPROVED</td>";
+                                                        }
+                                                        else{
+                                                            echo "<td></td>";
+                                                        }  
+
+                                                        if($r->warehouse_approved == 1){
+                                                            echo "<td>APPROVED</td>";
+                                                        }
+                                                        else{
+                                                            echo "<td></td>";
+                                                        }                                                                                                           
                                                         echo "<td>".date("d/M/Y H:i:s", strtotime($r->date_created))."</td>";
 
                                                         echo "<td>";

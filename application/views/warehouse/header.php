@@ -194,6 +194,10 @@
                         <a href="<?php echo $this->full_url; ?>inventory.php"><i class="fa fa-circle-o"></i><span>External Products Inventory </span></a>
                     </li>
 
+                    <li class="active">
+                        <a href="<?php echo $this->full_url; ?>pending_sp"><i class="fa fa-bookmark-o"></i><span>Sales Product Approval </span></a>
+                    </li>
+
                     <!-- <li class="active">
                         <a href="<?php echo $this->full_url; ?>requests.php"><i class="fa fa-circle-o"></i><span>Approve Requests </span></a>
                     </li>   -->

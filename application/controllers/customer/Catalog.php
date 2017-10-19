@@ -10,10 +10,10 @@ class Catalog extends CI_Controller {
             exit();
         } 
 
-       $this->mod_dir = $this->site_model->get_dept($_SESSION['powdera_logged']['dept_id'])->url;
+        $this->mod_dir = "customer/";
+        $this->customer_id = $_SESSION['powdera_customer_logged']['customer_id'];
         $this->full_url = $this->config->base_url()."".$this->mod_dir;
-        $this->staff_id = $_SESSION['powdera_logged']['staff_id'];
-        $this->module = "Sales Personnel";
+        $this->module = "Customer";
 
         
     }
