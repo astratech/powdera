@@ -21,6 +21,12 @@
                         <!--page title and breadcrumb end -->
 
                         <div class="row">
+                            <div class="col-md-12">
+                                <a href="<?php echo $this->full_url; ?>catalog.php" class="btn btn-primary btn-lg" style="color: #fff!important;">Make Sale</a>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
                             <div class="col-sm-12">
                                 <section class="panel">
                                     <header class="panel-heading panel-border">
